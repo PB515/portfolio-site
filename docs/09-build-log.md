@@ -12,8 +12,13 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 2026-06-02  | 0     | Scaffold Next 16 + Tailwind v4 + tokens | Build passes; routes shelled    | e285ed3
 2026-06-02  | 0     | Enforce LF (.gitattributes)             | Done                            | 565de15
 2026-06-02  | 0     | git identity (local) + SSH alias + push | Pushed to PB515/portfolio-site  | (pushed)
+2026-06-02  | 0     | Supabase project (Mumbai) + .env.local  | Done (.env.example committed)   | 634fab9
+2026-06-02  | 0     | Vercel import + deploy (PB515 acct)      | LIVE + verified placeholder     | (vercel)
 ```
-*(Append a row for every significant build prompt. Next: Supabase project (F) + Vercel deploy (G) to finish Phase 0.)*
+*Phase 0 COMPLETE — live at https://portfolio-site-psi-ruddy.vercel.app. Next: Phase 1 (security foundation).*
+
+### Phase 0 → Phase 1 resume note
+Phase 0 is done end-to-end: the Next 16 / Tailwind v4 shell builds, all 03b routes exist (public + a noindex `/admin`), and it's deployed live on Vercel under the PB515 accounts (separate GitHub + Vercel from the machine default — pushes go through SSH alias `github-pb515`). Supabase project exists in Mumbai; its URL + anon key are public-safe, the service-role key is server-only in `.env.local` (and was rolled after it surfaced in-session). Open `AGENTS.md` first next session. Phase 1 is the security foundation and must come before any editor UI: install the Supabase client (ask first — dependency rail), wire email+password auth for the SINGLE admin, add the `/admin` middleware guard, enable RLS deny-by-default on every table per doc 06, and **prove the logged-out denial gate** (try to reach `/admin`, write endpoints, drafts, and `leads` while logged out — all must fail) before building anything else. The admin user is created by hand in the Supabase dashboard because public sign-up is disabled.
 
 ---
 
