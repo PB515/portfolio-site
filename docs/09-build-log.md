@@ -16,7 +16,12 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 2026-06-02  | 0     | Vercel import + deploy (PB515 acct)      | LIVE + verified placeholder     | (vercel)
 2026-06-02  | 1     | Auth + proxy guard + schema/RLS         | Denial gate PROVEN (local)      | 597f223
 2026-06-02  | 1     | Merge phase-1 → main; Vercel env added  | LIVE; denial gate holds live    | cd3bfc7
+2026-06-02  | 2     | Root/Canopy theme (04a) + tokens        | Default Root; persisted toggle  | 0c91f84
+2026-06-02  | 2     | Site shell + identity-first home        | header/nav/footer/(site) group  | 6109a5b
+2026-06-02  | 2     | Theme-aware bg motif (circuit/leaves)   | one SVG, recolors per theme     | 16bc9e1
+2026-06-02  | 2     | Merge phase-2 → main (partial)          | LIVE (shell+theme+home)         | 16bc9e1
 ```
+*Phase 2 IN PROGRESS — shell + Root/Canopy theme + motif are live. Remaining: About (real story/philosophy/skills-arc/Experience[TBD]/resume link), Contact UI, restyle Portfolio/Field-Notes index empty-states. About/Contact were not built before this deploy (placeholders live).*
 *Phase 0 COMPLETE — live at https://portfolio-site-psi-ruddy.vercel.app.*
 *Phase 1 (branch `phase-1`): security foundation built + denial gate proven (see note). Pending: confirm sign-ups disabled + positive login test, then merge to main.*
 
