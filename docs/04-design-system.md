@@ -1,6 +1,6 @@
 # 04. Design System & Vibe — Purven Bhavsar Personal Brand
 
-*Frozen planning doc. Leads with the vibe, then locks it into hard tokens the AI can't misread. This doc + the Business Brief are AUTHORITATIVE on design; the research's tokens / "Root/Canopy" names are directional only. Contrast verified at launch.*
+*Frozen planning doc. Leads with the vibe, then locks it into hard tokens the AI can't misread. This doc + the Business Brief are AUTHORITATIVE on design. **The color system + theme behavior are now fully specified in [`04a-root-canopy-theme.md`](04a-root-canopy-theme.md) (Root & Canopy, v1.0) — that doc is the source of truth; this section summarizes + points to it.** Contrast verified at launch.*
 
 ---
 
@@ -24,17 +24,16 @@ This follows the voice decision (B5) and the brief's philosophy ("I enjoy unders
 ## TOKENS *(implement as CSS variables / framework config in Phase 0 — then NO hardcoded hex anywhere)*
 
 ```
-COLOR  (semantic names — values are a starting point, verify WCAG AA contrast at launch)
-  --color-bg              base background (light/Canopy default)
-  --color-surface         cards, raised panels
-  --color-text            primary body text (AA on --color-bg)
-  --color-text-muted      secondary text (still AA)
-  --color-primary         CTAs / links (the connect/action colour) — committed, distinctive, not default-blue
-  --color-primary-hover   hover/active of primary
-  --color-accent          used SPARINGLY (highlights only)
-  --color-border          hairlines, dividers
-  --color-success / --color-warning / --color-error   (form + toast states)
-  Dark theme: a parallel set of the same tokens (see theme toggle below)
+COLOR  → AUTHORITATIVE values in 04a (Root & Canopy). Semantic token names (in app/globals.css):
+  --background / --bg-1/2/3   theme gradient + solid fallback
+  --surface (+ --surface-solid)   cards, raised panels (translucent)
+  --foreground                primary text  · --muted  secondary text
+  --primary / --primary-hover / --accent   COPPER family — links/active-nav/underlines/hover (the "2% accent")
+  --on-primary                text on copper (verify AA — copper is mid-tone)
+  --border / --border-hover (copper) / --shadow-hover (copper-tinted)
+  --color-success / --warning / --error   (form + toast states)
+  Two themes via one token set: :root = ROOT (default), [data-theme="canopy"] overrides. NOT light/dark.
+  Copper is used SPARINGLY (90% bg+type · 8% support · 2% copper) — see 04a §7.
 
 TYPE
   Headings:  one sans-serif, heavier weight (e.g. Inter / Geist tight) — confident, clean
@@ -52,8 +51,8 @@ SHADOWS  1-2 defined (e.g. shadow-sm for cards, shadow-md for raised) — used c
 ASSETS   logo (vector/commissioned — NOT AI raster), brand images — paths in 06b
 ```
 
-## THEME (light/dark)
-A **light/dark toggle** is in scope (research suggested it; it fits a modern personal brand). Light is the default. Both themes are full token sets; persist the choice (localStorage); the toggle is keyboard-focusable and screen-reader-labelled; **verify AA contrast in BOTH themes at launch.** *(If it adds risk during build, it can be deferred to Phase 5 — it is not load-bearing for the spine.)*
+## THEME — Root 🌱 / Canopy 🌿 (Perspective, NOT light/dark) → full spec in 04a
+**Default = Root** (deep olive "Builder mode"); **Canopy** (cream "Thinking mode") is the alternate. The toggle is labelled **"Perspective"** — no "dark/light", no sun/moon. One token set; `:root` holds Root, `[data-theme="canopy"]` overrides; choice persists (localStorage) and an inline head-script applies it before paint (Root loads with zero JS). Toggle is keyboard-focusable + screen-reader-labelled. **Verify WCAG AA in BOTH perspectives** (copper-on-bg and text-on-copper are the watch points). Switching changes **only visual tokens** — never content/layout/nav. *Brought into Phase 2 (it's a brand feature in the nav), not deferred to Phase 5.*
 
 ## MOTION *(part of the spec, same rule as colour — set tone here, apply via named pieces)*
 **Motion vibe (one line):** *calm and understated — motion confirms structure, never decorates.* (Matches the credible, plain-spoken voice — restrained end of the `frontend-design` skill, never its bold default.)
