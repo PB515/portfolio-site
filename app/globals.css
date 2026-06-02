@@ -1,97 +1,113 @@
 @import "tailwindcss";
 
-/* ─────────────────────────────────────────────────────────────
-   Design tokens (doc 04). HEX LIVES ONLY HERE — components use
-   token utilities (bg-surface, text-muted, etc.), never raw hex.
-   Vibe: calm, credible, curious — plain-spoken builder. Restrained.
-   Light is the default; .dark is applied by the theme toggle (Phase 5).
-   AA contrast verified in BOTH themes at launch (doc 10).
-   ───────────────────────────────────────────────────────────── */
+/* =====================================================================
+   ROOT & CANOPY theme system — source of truth: docs/04a-root-canopy-theme.md
+   • Root = DEFAULT (Builder, deep olive). Canopy = [data-theme="canopy"] (cream).
+   • A "Perspective" switch — NOT dark/light. Root loads with zero JS.
+   • One token set; only values change per perspective; copper is the ~2% accent.
+   • HEX LIVES ONLY HERE — components use token utilities, never raw hex.
+   ===================================================================== */
 
-:root {
-  /* surfaces & text */
-  --background: #faf9f7;   /* warm off-white */
-  --surface:    #ffffff;
-  --foreground: #1a1a1a;
-  --muted:      #57534e;   /* secondary text — AA on background */
-  --border:     #e7e5e4;
-
-  /* brand — committed teal (growth/credible), not default blue */
-  --primary:        #0f766e;
-  --primary-hover:  #115e59;
-  --on-primary:     #ffffff;
-  --accent:         #b45309; /* used sparingly */
-
-  /* status */
-  --success: #15803d;
-  --warning: #b45309;
-  --error:   #b91c1c;
-
-  /* radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-
-  /* shadows */
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
-  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+/* ---------- ROOT (default) ---------- */
+:root,
+[data-theme="root"] {
+  --bg-1: #20291f;
+  --bg-2: #2f3a2b;
+  --bg-3: #3d4937;            /* gradient: deep olive forest */
+  --background: #20291f;      /* solid fallback */
+  --surface: rgba(12, 18, 12, 0.72);
+  --surface-solid: #182118;
+  --foreground: #f8f6f0;      /* warm white */
+  --muted: #b8c0b3;           /* muted sage */
+  --border: rgba(184, 192, 179, 0.15);
+  --border-hover: #b87333;
+  --primary: #b87333;         /* copper */
+  --primary-hover: #c67a3d;   /* copper light */
+  --primary-dark: #a56a2a;
+  --accent: #c67a3d;
+  --on-primary: #f8f6f0;      /* text on copper — verify AA (use bold/large) */
+  --shadow-hover: 0 8px 24px rgba(184, 115, 51, 0.25);
+  --success: #7fb069;
+  --warning: #d6a33e;
+  --error: #e08a7d;
 }
 
-.dark {
-  --background: #0c0a09;   /* warm near-black */
-  --surface:    #1c1917;
-  --foreground: #f5f5f4;
-  --muted:      #a8a29e;
-  --border:     #292524;
-
-  --primary:        #2dd4bf; /* lighter teal for contrast on dark */
-  --primary-hover:  #5eead4;
-  --on-primary:     #0c0a09;
-  --accent:         #fb923c;
-
-  --success: #4ade80;
-  --warning: #fbbf24;
-  --error:   #f87171;
+/* ---------- CANOPY ---------- */
+[data-theme="canopy"] {
+  --bg-1: #f4f1e8;
+  --bg-2: #e7e1d2;
+  --bg-3: #d6d0be;            /* gradient: warm sage journal */
+  --background: #f4f1e8;
+  --surface: rgba(255, 252, 242, 0.78);
+  --surface-solid: #fffdf6;
+  --foreground: #263021;      /* deep forest */
+  --muted: #5e6b57;           /* muted forest */
+  --border: rgba(38, 48, 33, 0.12);
+  --border-hover: #a8622a;
+  --primary: #a8622a;         /* copper (deeper for light bg) */
+  --primary-hover: #b87333;
+  --primary-dark: #8f511f;
+  --accent: #b87333;
+  --on-primary: #fffdf6;      /* text on copper — verify AA */
+  --shadow-hover: 0 8px 24px rgba(168, 98, 42, 0.15);
+  --success: #3e7c3a;
+  --warning: #9a6a1a;
+  --error: #b5483a;
 }
 
-/* Map tokens to Tailwind utilities (v4 @theme).
-   → bg-background, bg-surface, text-foreground, text-muted,
-     bg-primary, text-on-primary, border-border, etc. */
+/* ---------- map tokens → Tailwind utilities (v4 @theme) ----------
+   bg-background, bg-surface, text-foreground, text-muted, text-primary,
+   bg-primary, text-on-primary, border-border, border-border-hover, etc. */
 @theme inline {
   --color-background:    var(--background);
   --color-surface:       var(--surface);
+  --color-surface-solid: var(--surface-solid);
   --color-foreground:    var(--foreground);
   --color-muted:         var(--muted);
   --color-border:        var(--border);
+  --color-border-hover:  var(--border-hover);
   --color-primary:       var(--primary);
   --color-primary-hover: var(--primary-hover);
-  --color-on-primary:    var(--on-primary);
+  --color-primary-dark:  var(--primary-dark);
   --color-accent:        var(--accent);
+  --color-on-primary:    var(--on-primary);
   --color-success:       var(--success);
   --color-warning:       var(--warning);
   --color-error:         var(--error);
 
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
+  /* theme-agnostic literals */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.10);
+  --shadow-md: 0 6px 20px rgb(0 0 0 / 0.14);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  color-scheme: dark; /* sensible scrollbar/UA default; Root is dark-ish */
+}
+[data-theme="canopy"] {
+  color-scheme: light;
+}
+
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  transition: color 0.2s ease;
 }
 
 /* Accessibility: honor reduced motion globally (doc 04/10).
-   Named motion pieces opt back in only when motion is allowed. */
+   Named motion pieces (reveal, pop-in) opt back in only when motion is allowed. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;

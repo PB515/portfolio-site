@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   // metadataBase: set to the real production URL at launch (canonical/OG depend on it).
 };
 
+// Applies the saved Perspective before paint (no flash). Default = Root.
+const THEME_INIT = `(function(){try{var t=localStorage.getItem('perspective');if(t!=='canopy'&&t!=='root')t='root';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','root');}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,9 +34,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="root"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+        {children}
+      </body>
     </html>
   );
 }
