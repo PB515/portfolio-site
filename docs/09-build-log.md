@@ -7,10 +7,13 @@
 ## Changelog
 ```
 DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES                  | COMMIT
-2026-06-02  | plan  | Generated docs 01–11 (incl 03b, 06b)    | Done; awaiting 03b sign-off     | (pre-repo)
-            |       |                                         |                                 |
+2026-06-02  | plan  | Generated docs 01–11 (incl 03b, 06b)    | Done                            | (pre-repo)
+2026-06-02  | plan  | Authenticated-app conversion (PART 7)   | Added 02a; rewrote 06/05/08     | (pre-repo)
+2026-06-02  | 0     | Scaffold Next 16 + Tailwind v4 + tokens | Build passes; routes shelled    | e285ed3
+2026-06-02  | 0     | Enforce LF (.gitattributes)             | Done                            | 565de15
+2026-06-02  | 0     | git identity (local) + SSH alias + push | Pushed to PB515/portfolio-site  | (pushed)
 ```
-*(Append a row for every significant build prompt from Phase 0 on.)*
+*(Append a row for every significant build prompt. Next: Supabase project (F) + Vercel deploy (G) to finish Phase 0.)*
 
 ---
 
