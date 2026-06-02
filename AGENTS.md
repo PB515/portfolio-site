@@ -15,8 +15,11 @@ The personal-brand portfolio of **Purven Bhavsar** — a curious, plain-spoken b
 
 ## Current status
 **Phase 0 COMPLETE.** Scaffold (Next 16 + Tailwind v4) · tokens in app/globals.css (light/dark + reduced-motion) · all 03b routes shelled (public + /admin noindex) + 404 · prod build passes · git LOCAL identity (Purven Bhavsar / bhavsarpurven515@gmail.com) · SSH alias `github-pb515` · repo PB515/portfolio-site · Supabase project created (Mumbai), keys in .env.local · **deployed live: https://portfolio-site-psi-ruddy.vercel.app** (auto-deploys on push to main).
-NEXT: **Phase 1 — security foundation**: install @supabase/supabase-js + @supabase/ssr (ASK before adding) → email+password auth (single admin) → /admin middleware guard → RLS deny-by-default on every table → **PROVE logged-out denial gate** (no /admin, no writes, no drafts, no leads). Admin user created in Supabase dashboard (sign-up disabled).
-OPEN: rotate the sb_secret_ service-role key (was surfaced in session). Last commit: 634fab9. Tooling: Node 26.2 / npm 11.13 / git 2.54.
+**Phase 1 (branch `phase-1`) — security foundation BUILT + denial gate PROVEN.** @supabase/ssr clients (lib/supabase/*), `proxy.ts` guards /admin (logged-out → /admin/login), email+password login + /admin dashboard, db/migrations/0001_init.sql (5 tables + storage buckets, RLS deny-by-default — run in SQL Editor). Proven: anon can't read leads / can't write / drafts hidden; logged-out /admin → 307 login.
+PENDING before merge to main: (1) confirm public sign-ups DISABLED in Supabase Auth; (2) positive login test (admin logs in → dashboard) in browser; (3) add the 3 Supabase env vars to Vercel (live admin needs them). Then merge phase-1 → main.
+NEXT phase: Phase 3 admin CMS editors (Projects/Field Notes/Categories/Resume) — re-run denial gate after wiring writes.
+OPEN: rotate the sb_secret_ service-role key (surfaced in session; not load-bearing until Phase 3). Last commit: 597f223. Tooling: Node 26.2 / npm 11.13 / git 2.54.
+Next 16 gotcha: middleware is now `proxy.ts` (NOT middleware.ts — build fails if both exist).
 NOTE: Next.js 16 + Tailwind v4 are NEW/BREAKING — Tailwind config is CSS-first (`@import "tailwindcss"` + `@theme inline` in globals.css, no tailwind.config.js); dynamic route `params` is a Promise (await it); read `node_modules/next/dist/docs/` before non-trivial route code.
 Git: pushes use SSH alias `git@github-pb515:...` (a dedicated key, NOT the machine default account). Keep using it for this repo.
 
