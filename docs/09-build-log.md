@@ -14,7 +14,8 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 2026-06-02  | 0     | git identity (local) + SSH alias + push | Pushed to PB515/portfolio-site  | (pushed)
 2026-06-02  | 0     | Supabase project (Mumbai) + .env.local  | Done (.env.example committed)   | 634fab9
 2026-06-02  | 0     | Vercel import + deploy (PB515 acct)      | LIVE + verified placeholder     | (vercel)
-2026-06-02  | 1     | Auth + proxy guard + schema/RLS         | Denial gate PROVEN              | 597f223
+2026-06-02  | 1     | Auth + proxy guard + schema/RLS         | Denial gate PROVEN (local)      | 597f223
+2026-06-02  | 1     | Merge phase-1 → main; Vercel env added  | LIVE; denial gate holds live    | cd3bfc7
 ```
 *Phase 0 COMPLETE — live at https://portfolio-site-psi-ruddy.vercel.app.*
 *Phase 1 (branch `phase-1`): security foundation built + denial gate proven (see note). Pending: confirm sign-ups disabled + positive login test, then merge to main.*
