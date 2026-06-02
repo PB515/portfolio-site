@@ -102,6 +102,12 @@ body {
   transition: color 0.2s ease;
 }
 
+/* Theme-aware decorative motif (components/SiteDecor): show one per perspective.
+   Default (Root) shows the circuit; Canopy swaps to the leaves. */
+.decor-canopy { display: none; }
+[data-theme="canopy"] .decor-root { display: none; }
+[data-theme="canopy"] .decor-canopy { display: block; }
+
 /* Accessibility: honor reduced motion globally (doc 04/10).
    Named motion pieces (reveal, pop-in) opt back in only when motion is allowed. */
 @media (prefers-reduced-motion: reduce) {
