@@ -76,7 +76,7 @@ export default async function AboutPage() {
             working solutions.
           </h1>
         </div>
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-3xl border border-primary/40 bg-surface shadow-[var(--shadow-sm)]">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-sm)]">
           <Image
             src="/images/purven-about.png"
             alt="Purven Bhavsar"

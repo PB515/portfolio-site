@@ -29,7 +29,7 @@ export default function ContactPage() {
       <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_1.2fr]">
         {/* Direct links (these work now) */}
         <div>
-          <div className="relative mb-6 aspect-[4/5] w-full max-w-[300px] overflow-hidden rounded-3xl border border-primary/40 bg-surface shadow-[var(--shadow-sm)]">
+          <div className="relative mb-6 aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-sm)]">
             <Image
               src="/images/purven-contact.png"
               alt="Purven Bhavsar"

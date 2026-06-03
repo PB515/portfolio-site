@@ -68,7 +68,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-primary/40 bg-surface shadow-[var(--shadow-md)] sm:max-w-lg">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-lg overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-md)] sm:max-w-xl">
           <Image
             src="/images/purven-hero.png"
             alt="Purven Bhavsar"
