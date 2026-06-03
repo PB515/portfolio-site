@@ -68,14 +68,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative mx-auto h-[26rem] w-full max-w-md sm:h-[34rem] md:max-w-lg">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-primary/40 bg-surface shadow-[var(--shadow-md)] sm:max-w-lg">
           <Image
             src="/images/purven-hero.png"
             alt="Purven Bhavsar"
             fill
             priority
-            sizes="(max-width: 768px) 85vw, 520px"
-            className="object-contain object-bottom"
+            sizes="(max-width: 768px) 90vw, 560px"
+            className="object-cover object-top"
           />
         </div>
       </section>
