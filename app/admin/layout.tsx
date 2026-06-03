@@ -16,6 +16,7 @@ const NAV = [
   { href: "/admin/field-notes", label: "Field Notes" },
   { href: "/admin/categories", label: "Categories" },
   { href: "/admin/resume", label: "Résumé" },
+  { href: "/admin/messages", label: "Messages" },
 ];
 
 async function signOut() {

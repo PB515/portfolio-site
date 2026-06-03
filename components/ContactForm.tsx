@@ -2,34 +2,51 @@
 
 import { useState } from "react";
 
-// Phase 2: form UI only (idle/validation states). The real submit — POST to a
-// server route with honeypot + server-side validation + rate limiting, saving to
-// `leads` + emailing — is wired in Phase 4 (docs 02/06/08). Until then, submitting
-// shows an honest notice and points to direct email; nothing is silently lost.
 const EMAIL = "bhavsarpurven515@gmail.com";
 
 export function ContactForm() {
-  const [done, setDone] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setDone(true); // Phase 4 replaces this with the real POST.
+    setStatus("submitting");
+    setError(null);
+
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      name: fd.get("name"),
+      email: fd.get("email"),
+      message: fd.get("message"),
+      company: fd.get("company"), // honeypot
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error ?? "Something went wrong.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+    } catch {
+      setError("Network error — please email me directly.");
+      setStatus("error");
+    }
   }
 
-  if (done) {
+  if (status === "success") {
     return (
-      <div
-        role="status"
-        className="rounded-xl border border-border bg-surface p-6 text-sm"
-      >
-        <p className="font-medium text-foreground">Thanks for reaching out.</p>
+      <div role="status" className="rounded-xl border border-border bg-surface p-6 text-sm">
+        <p className="font-medium text-foreground">Thanks — your message is on its way.</p>
         <p className="mt-2 text-muted">
-          The contact form isn&apos;t fully wired up yet — for now the fastest way
-          to reach me is email:{" "}
-          <a
-            href={`mailto:${EMAIL}`}
-            className="text-primary hover:text-primary-hover"
-          >
+          I&apos;ll get back to you soon. You can also reach me at{" "}
+          <a href={`mailto:${EMAIL}`} className="text-primary hover:text-primary-hover">
             {EMAIL}
           </a>
           .
@@ -38,12 +55,14 @@ export function ContactForm() {
     );
   }
 
+  const submitting = status === "submitting";
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      {/* Honeypot — hidden from humans; bots that fill it get rejected (Phase 4). */}
+      {/* Honeypot — hidden from humans; bots that fill it are dropped server-side. */}
       <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
         <label>
-          Leave this empty
+          Company
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
@@ -54,6 +73,7 @@ export function ContactForm() {
           type="text"
           name="name"
           required
+          maxLength={120}
           className="rounded-md border border-border bg-surface px-3 py-2 text-foreground outline-none transition-colors focus:border-primary"
         />
       </label>
@@ -65,6 +85,7 @@ export function ContactForm() {
           name="email"
           required
           autoComplete="email"
+          maxLength={200}
           className="rounded-md border border-border bg-surface px-3 py-2 text-foreground outline-none transition-colors focus:border-primary"
         />
       </label>
@@ -75,16 +96,29 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
+          maxLength={5000}
           className="resize-y rounded-md border border-border bg-surface px-3 py-2 text-foreground outline-none transition-colors focus:border-primary"
         />
       </label>
 
+      {error && (
+        <p role="alert" className="text-sm text-error">
+          {error}
+        </p>
+      )}
+
       <button
         type="submit"
-        className="mt-1 self-start rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+        disabled={submitting}
+        className="mt-1 self-start rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover disabled:opacity-60"
       >
-        Send message
+        {submitting ? "Sending…" : "Send message"}
       </button>
+
+      <p className="text-xs text-muted">
+        By sending, you agree your message is stored so I can reply. See the{" "}
+        <a href="/privacy" className="underline hover:text-foreground">privacy policy</a>.
+      </p>
     </form>
   );
 }
