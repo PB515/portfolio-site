@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { PerspectiveToggle } from "@/components/PerspectiveToggle";
+import { AdminDecor } from "@/components/AdminDecor";
 
 // Admin is private: never indexed. Auth gating is in proxy.ts (redirect logged-out);
 // each page also re-checks getUser() (defense in depth).
@@ -16,7 +17,7 @@ const NAV = [
   { href: "/admin/projects", label: "Projects" },
   { href: "/admin/field-notes", label: "Field Notes" },
   { href: "/admin/categories", label: "Categories" },
-  { href: "/admin/resume", label: "Résumé" },
+  { href: "/admin/resume", label: "Resume" },
   { href: "/admin/messages", label: "Messages" },
 ];
 
@@ -38,25 +39,34 @@ export default async function AdminLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <div className="min-h-full">
-      {/* Bar shows only when authenticated (not on /admin/login). */}
+    <div className="flex min-h-screen flex-col">
+      {user && <AdminDecor />}
+      {/* Top bar = navigation only. Shown when authenticated (not on /admin/login). */}
       {user && (
         <header className="border-b border-border bg-surface">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-6 py-3">
-            <nav className="flex flex-wrap items-center gap-5 text-sm">
-              <span className="font-semibold tracking-tight">Admin</span>
-              {NAV.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className="text-muted transition-colors hover:text-foreground"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
-            <div className="flex items-center gap-3 text-sm">
-              <PerspectiveToggle />
+          <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-3.5 text-base">
+            <span className="font-semibold tracking-tight">Admin</span>
+            {NAV.map((n) => (
+              <Link
+                key={n.href}
+                href={n.href}
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        </header>
+      )}
+
+      <div className="flex-1">{children}</div>
+
+      {/* Footer = account controls (toggle / who / view site / log out). */}
+      {user && (
+        <footer className="mt-auto border-t border-border bg-surface">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-6 py-3 text-sm">
+            <PerspectiveToggle />
+            <div className="flex items-center gap-4">
               <span className="hidden text-muted sm:inline">{user.email}</span>
               <Link
                 href="/"
@@ -74,9 +84,8 @@ export default async function AdminLayout({
               </form>
             </div>
           </div>
-        </header>
+        </footer>
       )}
-      {children}
     </div>
   );
 }

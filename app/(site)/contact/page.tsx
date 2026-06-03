@@ -1,5 +1,7 @@
-import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
+import { Reveal } from "@/components/Reveal";
+import { Portrait } from "@/components/Portrait";
+import { ContactDecor } from "@/components/ContactDecor";
 
 export const metadata = {
   title: "Contact",
@@ -15,27 +17,28 @@ const CONNECT = [
 export default function ContactPage() {
   return (
     <main className="mx-auto max-w-3xl px-6 pt-20 pb-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+      <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
         Contact
-      </p>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+      </Reveal>
+      <Reveal as="h1" delay={80} className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
         Let&apos;s connect
-      </h1>
-      <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+      </Reveal>
+      <Reveal as="p" delay={160} className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
         Whether you want to talk systems, AI automation, or just say hello —
         I&apos;d like to hear from you.
-      </p>
+      </Reveal>
 
-      <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_1.2fr]">
+      <div className="relative isolate mt-10 grid gap-10 overflow-hidden sm:grid-cols-[1fr_1.2fr]">
+        <ContactDecor className="inset-0 -z-10 opacity-[0.07]" />
         {/* Direct links (these work now) */}
-        <div>
-          <div className="relative mb-6 aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-sm)]">
-            <Image
+        <Reveal>
+          <div className="mb-6 w-full max-w-[340px]">
+            <Portrait
               src="/images/purven-contact.png"
               alt="Purven Bhavsar"
-              fill
+              variant="rings"
+              art="/brand/portrait-contact.png"
               sizes="(max-width: 640px) 75vw, 300px"
-              className="object-cover object-top"
             />
           </div>
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
@@ -56,17 +59,17 @@ export default function ContactPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
         {/* Form (UI; wired in Phase 4) */}
-        <div>
+        <Reveal delay={120}>
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Send a message
           </h2>
           <div className="mt-4">
             <ContactForm />
           </div>
-        </div>
+        </Reveal>
       </div>
     </main>
   );

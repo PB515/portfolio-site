@@ -215,12 +215,12 @@ export default async function NoteEditorPage({
             type="file"
             name="cover"
             accept="image/*"
-            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-primary-hover"
+            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-cta file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-cta-hover"
           />
         </label>
 
         <div className="mt-2 flex items-center gap-3">
-          <button type="submit" className="rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover">
+          <button type="submit" className="rounded-full bg-cta px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover">
             Save
           </button>
           <Link href="/admin/field-notes" className="text-sm text-muted hover:text-foreground">

@@ -23,7 +23,7 @@ async function uploadResume(formData: FormData) {
 
   const file = formData.get("file") as File | null;
   if (!file || file.size === 0) return back("Choose a PDF to upload.");
-  if (file.type !== "application/pdf") return back("Résumé must be a PDF.");
+  if (file.type !== "application/pdf") return back("Resume must be a PDF.");
   if (file.size > MAX_PDF) return back("PDF must be under 10 MB.");
 
   const path = `cv-${Date.now()}.pdf`;
@@ -32,7 +32,7 @@ async function uploadResume(formData: FormData) {
     .upload(path, file, { contentType: "application/pdf", upsert: true });
   if (upErr) return back(`Upload failed: ${upErr.message}`);
 
-  // Make this the current résumé (unset previous, then insert).
+  // Make this the current resume (unset previous, then insert).
   await supabase.from("resume").update({ is_current: false }).eq("is_current", true);
   const { error: insErr } = await supabase
     .from("resume")
@@ -64,9 +64,9 @@ export default async function AdminResumePage({
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-14">
-      <h1 className="text-3xl font-semibold tracking-tight">Résumé</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">Resume</h1>
       <p className="mt-2 text-sm text-muted">
-        Upload a PDF. The public résumé link updates automatically to the latest one.
+        Upload a PDF. The public resume link updates automatically to the latest one.
       </p>
 
       {errorMsg && (
@@ -82,29 +82,29 @@ export default async function AdminResumePage({
         {currentUrl ? (
           <p className="mt-3 text-sm">
             <a href={currentUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-hover">
-              {current?.original_name ?? "résumé.pdf"}
+              {current?.original_name ?? "resume.pdf"}
             </a>{" "}
             <span className="text-muted">
               · uploaded {current?.uploaded_at ? new Date(current.uploaded_at).toLocaleDateString() : ""}
             </span>
           </p>
         ) : (
-          <p className="mt-3 text-sm text-muted">No résumé uploaded yet.</p>
+          <p className="mt-3 text-sm text-muted">No resume uploaded yet.</p>
         )}
       </div>
 
       <form action={uploadResume} className="mt-6 flex flex-col gap-4 rounded-xl border border-border bg-surface p-5">
         <label className="flex flex-col gap-1 text-sm">
-          <span className="text-muted">Upload new résumé — PDF, under 10 MB</span>
+          <span className="text-muted">Upload new resume — PDF, under 10 MB</span>
           <input
             type="file"
             name="file"
             accept="application/pdf"
             required
-            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-primary-hover"
+            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-cta file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-cta-hover"
           />
         </label>
-        <button type="submit" className="self-start rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover">
+        <button type="submit" className="self-start rounded-full bg-cta px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover">
           Upload &amp; set as current
         </button>
       </form>

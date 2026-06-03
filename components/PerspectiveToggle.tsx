@@ -33,13 +33,13 @@ export function PerspectiveToggle() {
     <div
       role="group"
       aria-label="Perspective"
-      className="inline-flex items-center rounded-full border border-border p-0.5 text-xs font-medium"
+      className="inline-flex items-center rounded-full border border-border p-0.5 text-sm font-medium"
     >
       <button
         type="button"
         aria-pressed={theme === "root"}
         onClick={() => choose("root")}
-        className={`${base} ${theme === "root" ? "bg-primary text-on-primary" : "text-muted hover:text-foreground"}`}
+        className={`${base} ${theme === "root" ? "bg-cta text-on-primary" : "text-muted hover:text-foreground"}`}
       >
         🌱 Root
       </button>
@@ -47,7 +47,7 @@ export function PerspectiveToggle() {
         type="button"
         aria-pressed={theme === "canopy"}
         onClick={() => choose("canopy")}
-        className={`${base} ${theme === "canopy" ? "bg-primary text-on-primary" : "text-muted hover:text-foreground"}`}
+        className={`${base} ${theme === "canopy" ? "bg-cta text-on-primary" : "text-muted hover:text-foreground"}`}
       >
         🌿 Canopy
       </button>

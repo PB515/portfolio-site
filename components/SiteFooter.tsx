@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Icon, type IconName } from "@/components/Icon";
+import { FooterDecor } from "@/components/FooterDecor";
 
 const CONNECT: { href: string; label: string; icon: IconName }[] = [
   { href: "https://www.linkedin.com/in/purvenbhavsar", label: "LinkedIn", icon: "linkedin" },
@@ -18,13 +20,23 @@ const NAV = [
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-24 border-t border-border">
+    <footer className="relative isolate mt-24 overflow-hidden border-t border-border">
+      <FooterDecor className="inset-x-0 bottom-0 -z-10 w-full opacity-[0.09]" />
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-sm">
-          <p className="text-sm font-semibold tracking-[0.18em] text-foreground">
-            PURVEN BHAVSAR
-          </p>
-          <p className="mt-3 text-sm text-muted">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/brand/logo-mark.png"
+              alt=""
+              width={48}
+              height={48}
+              className="h-12 w-12 shrink-0"
+            />
+            <p className="text-xl font-semibold tracking-[0.1em] text-foreground">
+              PURVEN BHAVSAR
+            </p>
+          </div>
+          <p className="mt-4 text-sm text-muted">
             Learning complex systems and turning them into practical, working
             solutions.
           </p>

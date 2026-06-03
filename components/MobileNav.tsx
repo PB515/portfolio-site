@@ -53,7 +53,7 @@ export function MobileNav({
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-primary px-4 py-2 text-center text-sm font-medium text-on-primary"
+              className="mt-2 rounded-full bg-cta px-4 py-2 text-center text-sm font-medium text-on-primary"
             >
               Let&apos;s Connect
             </Link>

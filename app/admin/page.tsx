@@ -6,7 +6,7 @@ const AREAS = [
   { href: "/admin/projects", label: "Projects", note: "Create, edit, publish" },
   { href: "/admin/field-notes", label: "Field Notes", note: "Write & publish notes" },
   { href: "/admin/categories", label: "Categories", note: "Per kind: create / delete" },
-  { href: "/admin/resume", label: "Résumé", note: "Upload / replace the PDF" },
+  { href: "/admin/resume", label: "Resume", note: "Upload / replace the PDF" },
 ];
 
 export default async function AdminDashboardPage() {

@@ -16,7 +16,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
         <Logo />
 
-        <nav className="hidden items-center gap-7 text-sm md:flex">
+        <nav className="hidden items-center gap-7 text-base md:flex">
           {NAV.map((n) => (
             <Link
               key={n.href}
@@ -32,7 +32,7 @@ export function SiteHeader() {
           <PerspectiveToggle />
           <Link
             href="/contact"
-            className="hidden rounded-full bg-primary px-4 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover sm:inline-block"
+            className="hidden rounded-full bg-cta px-4 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover sm:inline-block"
           >
             Let&apos;s Connect
           </Link>

@@ -5,7 +5,7 @@ export const metadata = {
 
 // NOTE (flagged for human/legal review before full launch): this is a plain-language
 // privacy policy reflecting what the site actually does (contact form → Supabase, cookieless
-// analytics, public résumé). Review for your jurisdiction (India DPDP / EU GDPR) before promoting.
+// analytics, public resume). Review for your jurisdiction (India DPDP / EU GDPR) before promoting.
 
 export default function PrivacyPage() {
   return (

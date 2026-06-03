@@ -23,7 +23,7 @@ export default async function AdminFieldNotesPage() {
         <h1 className="text-3xl font-semibold tracking-tight">Field Notes</h1>
         <Link
           href="/admin/field-notes/new"
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+          className="rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
         >
           New note
         </Link>

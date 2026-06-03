@@ -21,13 +21,19 @@
   --muted: #b8c0b3;           /* muted sage */
   --border: rgba(184, 192, 179, 0.15);
   --border-hover: #c67a3d;
-  /* AA fix: on the dark olive bg, copper #b87333 was ~3.9:1 (under 4.5). Use the
-     lighter copper for links/accents/button-bg + DARK text on buttons → ~4.6:1. */
-  --primary: #c67a3d;         /* copper light — links, accents, button bg */
+  /* Links/accents use the lighter copper (#c67a3d ≈ 4.6:1 on the dark olive bg).
+     CTA buttons use WARM-WHITE labels (matches Canopy) — the earlier dark-on-copper
+     label scanned as unreadable black against the olive UI. */
+  --primary: #c67a3d;         /* copper light — links, accents, decorative dots */
   --primary-hover: #d08a4a;   /* lighter on hover */
   --primary-dark: #a56a2a;
   --accent: #d08a4a;
-  --on-primary: #20291f;      /* DARK text on copper buttons — passes AA on --primary */
+  --on-primary: #f8f6f0;      /* warm-white text on copper buttons */
+  /* CTA = button fill ONLY. Decoupled from --primary so links can stay light
+     (4.6:1 on dark bg) while buttons go deep enough that warm-white text passes
+     AA: white on #9c5e22 ≈ 4.85:1, hover #8a521d ≈ 5.9:1. */
+  --cta: #9c5e22;
+  --cta-hover: #8a521d;
   --shadow-hover: 0 8px 24px rgba(184, 115, 51, 0.25);
   --success: #7fb069;
   --warning: #d6a33e;
@@ -50,7 +56,11 @@
   --primary-hover: #b87333;
   --primary-dark: #8f511f;
   --accent: #b87333;
-  --on-primary: #fffdf6;      /* text on copper — verify AA */
+  --on-primary: #fffdf6;      /* warm-white text on copper buttons */
+  /* CTA = button fill. white on #a8622a ≈ 4.7:1; hover darkens (NOT the old
+     lighter #b87333 which was only ~3.8:1) to #8f511f ≈ 6.2:1. */
+  --cta: #a8622a;
+  --cta-hover: #8f511f;
   --shadow-hover: 0 8px 24px rgba(168, 98, 42, 0.15);
   --success: #3e7c3a;
   --warning: #9a6a1a;
@@ -73,6 +83,8 @@
   --color-primary-dark:  var(--primary-dark);
   --color-accent:        var(--accent);
   --color-on-primary:    var(--on-primary);
+  --color-cta:           var(--cta);
+  --color-cta-hover:     var(--cta-hover);
   --color-success:       var(--success);
   --color-warning:       var(--warning);
   --color-error:         var(--error);
@@ -102,6 +114,82 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   transition: color 0.2s ease;
+}
+
+/* ---------- Motion layer (doc 04/10) ----------
+   Scroll-reveal + hover-lift. All gated behind `no-preference`, so anyone with
+   the reduced-motion OS setting sees content fully visible and unmoved. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll reveal — element starts low + faded, transitions in when JS adds
+     .is-visible (see components/Reveal.tsx). transition-delay set inline for stagger. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hover lift — cards/tiles rise with a soft copper shadow. */
+  .lift:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Portrait backdrops — a DISTINCT copper decoration behind each transparent
+   cut-out photo (see components/Portrait.tsx). Theme-aware via --primary, no
+   image assets. glow = soft halo · grid = circuit dots · rings = copper ripples. */
+.portrait-glow {
+  background: radial-gradient(
+    58% 52% at 50% 40%,
+    color-mix(in srgb, var(--primary) 35%, transparent) 0%,
+    transparent 72%
+  );
+}
+.portrait-grid {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--primary) 26%, transparent) 1.3px,
+    transparent 1.4px
+  );
+  background-size: 15px 15px;
+}
+.portrait-rings {
+  background: radial-gradient(
+    circle at 50% 42%,
+    transparent 0 29%,
+    color-mix(in srgb, var(--primary) 24%, transparent) 29% 30.5%,
+    transparent 30.5% 44%,
+    color-mix(in srgb, var(--primary) 17%, transparent) 44% 45.5%,
+    transparent 45.5% 60%,
+    color-mix(in srgb, var(--primary) 11%, transparent) 60% 61.5%,
+    transparent 61.5%
+  );
+}
+
+/* Theme-swapped decor (see components/Decor.tsx): Root shows copper circuit
+   motifs, Canopy shows sage branch/leaf motifs. Root is the default. */
+.decor-root { display: block; }
+.decor-canopy { display: none; }
+[data-theme="canopy"] .decor-root { display: none; }
+[data-theme="canopy"] .decor-canopy { display: block; }
+
+/* Corner-frame accents are stretched to the content box (preserveAspectRatio
+   "none"); keep their strokes a constant width so the ticks stay crisp. */
+.decor-stretch path,
+.decor-stretch circle {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Lift transition lives outside the query so the reduced-motion block below can
+   neutralise it; the :hover transform itself is gated above. */
+.lift {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.lift:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 /* Accessibility: honor reduced motion globally (doc 04/10).

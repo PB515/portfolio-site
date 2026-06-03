@@ -1,7 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 import { Icon } from "@/components/Icon";
+import { Reveal } from "@/components/Reveal";
+import { Portrait } from "@/components/Portrait";
+import { AboutDecor } from "@/components/AboutDecor";
 
 export const revalidate = 60;
 
@@ -63,17 +65,19 @@ function Section({
 }) {
   return (
     <section className="mx-auto max-w-3xl px-6 py-10">
-      {eyebrow && (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-        {title}
-      </h2>
-      <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted">
-        {children}
-      </div>
+      <Reveal>
+        {eyebrow && (
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            {eyebrow}
+          </p>
+        )}
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+          {title}
+        </h2>
+        <div className="mt-5 space-y-4 text-lg leading-relaxed text-muted">
+          {children}
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -90,8 +94,9 @@ export default async function AboutPage() {
   return (
     <>
       {/* Intro */}
-      <section className="mx-auto grid max-w-4xl items-center gap-8 px-6 pt-20 pb-6 sm:grid-cols-[1.3fr_1fr]">
-        <div>
+      <section className="relative isolate mx-auto grid max-w-4xl items-center gap-8 overflow-hidden px-6 pt-20 pb-6 sm:grid-cols-[1.3fr_1fr]">
+        <AboutDecor className="-left-8 bottom-0 -z-10 h-60 w-60 opacity-[0.10]" />
+        <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             About
           </p>
@@ -99,16 +104,16 @@ export default async function AboutPage() {
             I learn complex systems quickly — and turn them into practical,
             working solutions.
           </h1>
-        </div>
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-sm)]">
-          <Image
+        </Reveal>
+        <Reveal delay={120} className="mx-auto w-full max-w-[360px]">
+          <Portrait
             src="/images/purven-about.png"
             alt="Purven Bhavsar"
-            fill
+            variant="grid"
+            art="/brand/portrait-about.png"
             sizes="(max-width: 640px) 75vw, 320px"
-            className="object-cover object-top"
           />
-        </div>
+        </Reveal>
       </section>
 
       {/* Story (from the brief, first person) */}
@@ -143,7 +148,7 @@ export default async function AboutPage() {
           {VALUES.map((v) => (
             <li
               key={v}
-              className="rounded-full border border-border px-3 py-1 text-sm text-foreground"
+              className="cursor-default rounded-full border border-border px-3 py-1 text-sm text-foreground transition-colors hover:border-border-hover hover:text-primary"
             >
               {v}
             </li>
@@ -167,7 +172,7 @@ export default async function AboutPage() {
               {SKILLS_TODAY.map((s) => (
                 <li
                   key={s}
-                  className="rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border"
+                  className="cursor-default rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border transition-colors hover:text-primary hover:ring-border-hover"
                 >
                   {s}
                 </li>
@@ -183,7 +188,7 @@ export default async function AboutPage() {
               {SKILLS_FUTURE.map((s) => (
                 <li
                   key={s}
-                  className="rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border"
+                  className="cursor-default rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border transition-colors hover:text-primary hover:ring-border-hover"
                 >
                   {s}
                 </li>
@@ -227,15 +232,15 @@ export default async function AboutPage() {
         </p>
       </Section>
 
-      {/* Résumé + connect */}
+      {/* Resume + connect */}
       <section className="mx-auto max-w-3xl px-6 py-12">
-        <div className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-lg font-medium tracking-tight">Résumé</p>
+            <p className="text-lg font-medium tracking-tight">Resume</p>
             <p className="mt-1 text-sm text-muted">
               {resumeUrl
-                ? "Download my résumé, or reach out to connect."
-                : "A downloadable résumé is coming soon — reach out and I'll share it."}
+                ? "Download my resume, or reach out to connect."
+                : "A downloadable resume is coming soon — reach out and I'll share it."}
             </p>
           </div>
           {resumeUrl ? (
@@ -243,19 +248,19 @@ export default async function AboutPage() {
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+              className="shrink-0 rounded-full bg-cta px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
             >
-              Download résumé
+              Download resume
             </a>
           ) : (
             <Link
               href="/contact"
-              className="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+              className="shrink-0 rounded-full bg-cta px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
             >
               Get in touch
             </Link>
           )}
-        </div>
+        </Reveal>
       </section>
     </>
   );

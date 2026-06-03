@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Reveal } from "@/components/Reveal";
+import { FieldNotesDecor } from "@/components/FieldNotesDecor";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 
 export const metadata = {
@@ -19,7 +21,7 @@ type Cat = { id: string; name: string; slug: string };
 const chip = (active: boolean) =>
   `rounded-full border px-4 py-1.5 text-sm transition-colors ${
     active
-      ? "border-primary bg-primary text-on-primary"
+      ? "border-primary bg-cta text-on-primary"
       : "border-border text-muted hover:border-border-hover hover:text-foreground"
   }`;
 
@@ -87,36 +89,37 @@ export default async function FieldNotesPage({
   const notes = (data ?? []) as Note[];
 
   return (
-    <main className="mx-auto max-w-5xl px-6 pt-20 pb-16">
-      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+    <main className="relative isolate mx-auto max-w-5xl overflow-hidden px-6 pt-20 pb-16">
+      <FieldNotesDecor className="inset-0 -z-10 opacity-[0.06]" />
+      <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
         Field Notes
-      </p>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+      </Reveal>
+      <Reveal as="h1" delay={80} className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
         Notes on what I&apos;m learning
-      </h1>
-      <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+      </Reveal>
+      <Reveal as="p" delay={160} className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
         Short writing on AI, automation, systems, and the road toward
         infrastructure and growth.
-      </p>
+      </Reveal>
 
       {/* Featured row (unfiltered view only) */}
       {featured.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          <Reveal as="h2" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Featured
-          </h2>
+          </Reveal>
           <ul className="mt-4 grid gap-6 sm:grid-cols-3">
-            {featured.map((n) => {
+            {featured.map((n, i) => {
               const cover = publicAsset("covers", n.cover_path);
               return (
-                <li key={n.slug}>
+                <Reveal as="li" key={n.slug} delay={i * 80}>
                   <Link
                     href={`/field-notes/${n.slug}`}
-                    className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-border-hover"
+                    className="group lift block overflow-hidden rounded-2xl border border-border bg-surface hover:border-border-hover"
                   >
                     {cover && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover" />
+                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
                     )}
                     <div className="p-4">
                       <h3 className="font-medium text-foreground group-hover:text-primary">
@@ -127,7 +130,7 @@ export default async function FieldNotesPage({
                       )}
                     </div>
                   </Link>
-                </li>
+                </Reveal>
               );
             })}
           </ul>
@@ -136,7 +139,7 @@ export default async function FieldNotesPage({
 
       {/* Category filter */}
       {categories.length > 0 && (
-        <div className="mt-10 flex flex-wrap gap-2">
+        <Reveal className="mt-10 flex flex-wrap gap-2">
           <Link href="/field-notes" className={chip(!selected)}>
             All
           </Link>
@@ -149,19 +152,19 @@ export default async function FieldNotesPage({
               {c.name}
             </Link>
           ))}
-        </div>
+        </Reveal>
       )}
 
       {notes.length === 0 ? (
         selected ? (
-          <p className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-10 text-center text-sm text-muted">
+          <Reveal as="p" className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-10 text-center text-sm text-muted">
             No notes in <span className="text-foreground">{selected.name}</span> yet.{" "}
             <Link href="/field-notes" className="text-primary hover:text-primary-hover">
               View all
             </Link>
-          </p>
+          </Reveal>
         ) : (
-          <div className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+          <Reveal className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
             <p className="text-lg font-medium text-foreground">Writing soon.</p>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted">
               I&apos;m putting together my first field notes. Check back shortly — or
@@ -170,19 +173,19 @@ export default async function FieldNotesPage({
             <div className="mt-6 flex justify-center">
               <Link
                 href="/contact"
-                className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+                className="rounded-full bg-cta px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
               >
                 Get in touch
               </Link>
             </div>
-          </div>
+          </Reveal>
         )
       ) : (
         <ul className="mt-8 divide-y divide-border border-y border-border">
-          {notes.map((n) => (
-            <li key={n.slug}>
+          {notes.map((n, i) => (
+            <Reveal as="li" key={n.slug} delay={i * 60}>
               <NoteCard n={n} />
-            </li>
+            </Reveal>
           ))}
         </ul>
       )}
