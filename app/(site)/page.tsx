@@ -122,9 +122,9 @@ export default async function HomePage() {
         </ul>
       </section>
 
-      {/* Story teaser → About */}
-      <section className="mx-auto max-w-5xl px-6 py-12">
-        <div className="max-w-2xl rounded-xl border border-border bg-surface p-7 shadow-[var(--shadow-sm)]">
+      {/* Story teaser → About (+ image slot) */}
+      <section className="mx-auto grid max-w-5xl items-center gap-8 px-6 py-12 md:grid-cols-[1.2fr_1fr]">
+        <div className="rounded-xl border border-border bg-surface p-7 shadow-[var(--shadow-sm)]">
           <p className="text-lg leading-relaxed text-foreground">
             It started with opening up old CPUs and electronics as a kid, became
             a first webpage in a school lab, and grew into AI automation and the
@@ -136,6 +136,15 @@ export default async function HomePage() {
           >
             Read the full story →
           </Link>
+        </div>
+
+        {/* PLACEHOLDER — replace with public/images/purven-story.jpg (~1200×800) */}
+        <div className="flex aspect-[3/2] w-full items-center justify-center rounded-2xl border-2 border-dashed border-primary/50 bg-surface text-center">
+          <div className="px-4 text-sm text-muted">
+            <p className="font-medium text-foreground">Image</p>
+            <p className="mt-1">~1200×800 (3:2 landscape)</p>
+            <p className="mt-1 text-xs">save as /images/purven-story.jpg</p>
+          </div>
         </div>
       </section>
 
