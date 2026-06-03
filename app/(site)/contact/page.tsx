@@ -28,19 +28,34 @@ export default function ContactPage() {
         I&apos;d like to hear from you.
       </Reveal>
 
-      <div className="relative isolate mt-10 grid gap-10 overflow-hidden sm:grid-cols-[1fr_1.2fr]">
+      {/* Grid areas: mobile stacks photo → form → links; desktop keeps photo + links
+          on the left, form on the right. */}
+      <div className="relative isolate mt-10 grid gap-x-10 gap-y-8 overflow-hidden [grid-template-areas:'photo'_'form'_'links'] sm:grid-cols-[1fr_1.2fr] sm:[grid-template-areas:'photo_form'_'links_form']">
         <ContactDecor className="inset-0 -z-10 opacity-[0.07]" />
-        {/* Direct links (these work now) */}
-        <Reveal>
-          <div className="mb-6 w-full max-w-[340px]">
-            <Portrait
-              src="/images/purven-contact.png"
-              alt="Purven Bhavsar"
-              variant="rings"
-              art="/brand/portrait-contact.png"
-              sizes="(max-width: 640px) 75vw, 300px"
-            />
+
+        {/* Photo */}
+        <Reveal className="w-full max-w-[340px] [grid-area:photo]">
+          <Portrait
+            src="/images/purven-contact.png"
+            alt="Purven Bhavsar"
+            variant="rings"
+            art="/brand/portrait-contact.png"
+            sizes="(max-width: 640px) 75vw, 300px"
+          />
+        </Reveal>
+
+        {/* Form */}
+        <Reveal delay={120} className="[grid-area:form]">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Send a message
+          </h2>
+          <div className="mt-4">
+            <ContactForm />
           </div>
+        </Reveal>
+
+        {/* Direct links */}
+        <Reveal delay={200} className="[grid-area:links]">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Reach me directly
           </h2>
@@ -59,16 +74,6 @@ export default function ContactPage() {
               </li>
             ))}
           </ul>
-        </Reveal>
-
-        {/* Form (UI; wired in Phase 4) */}
-        <Reveal delay={120}>
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            Send a message
-          </h2>
-          <div className="mt-4">
-            <ContactForm />
-          </div>
         </Reveal>
       </div>
     </main>

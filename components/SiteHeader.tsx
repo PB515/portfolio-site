@@ -29,7 +29,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <PerspectiveToggle />
+          <div className="hidden sm:block">
+            <PerspectiveToggle />
+          </div>
           <Link
             href="/contact"
             className="hidden rounded-full bg-cta px-4 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover sm:inline-block"

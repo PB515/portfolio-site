@@ -20,10 +20,10 @@ export function Logo() {
         className="h-9 w-9 shrink-0"
       />
       <span className="flex flex-col leading-none">
-        <span className="text-base font-semibold tracking-tight text-foreground">
+        <span className="whitespace-nowrap text-base font-semibold tracking-tight text-foreground">
           Purven Bhavsar<span className="text-primary">.</span>
         </span>
-        <span className="mt-1.5 text-[0.6rem] uppercase tracking-[0.28em] text-muted">
+        <span className="mt-1.5 whitespace-nowrap text-[0.6rem] uppercase tracking-[0.28em] text-muted">
           Engineer · Automate · Grow
         </span>
       </span>

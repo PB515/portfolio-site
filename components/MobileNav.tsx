@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { PerspectiveToggle } from "./PerspectiveToggle";
 
 // Mobile hamburger menu (md:hidden). Desktop nav lives in SiteHeader.
 export function MobileNav({
@@ -57,6 +58,9 @@ export function MobileNav({
             >
               Let&apos;s Connect
             </Link>
+            <div className="mt-4 flex justify-center border-t border-border pt-4">
+              <PerspectiveToggle />
+            </div>
           </nav>
         </div>
       )}
