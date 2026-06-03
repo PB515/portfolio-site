@@ -24,13 +24,15 @@ const PERSON = {
   ],
 };
 
-const CAPABILITIES: { icon: IconName; label: string }[] = [
-  { icon: "ai-automation", label: "AI Automation" },
-  { icon: "systems-thinking", label: "Systems Thinking" },
-  { icon: "frontend-engineering", label: "Web & Frontend" },
-  { icon: "growth-marketing", label: "Growth & SEO" },
-  { icon: "learning-research", label: "Learning & Research" },
-  { icon: "writing-explaining", label: "Writing & Explaining" },
+// Each tile links to the Portfolio filtered by this category (slug must match a
+// category created in admin, kind=project).
+const CATEGORIES: { icon: IconName; label: string; slug: string }[] = [
+  { icon: "ai-automation", label: "AI Automation", slug: "ai-automation" },
+  { icon: "case-studies", label: "Case Studies", slug: "case-studies" },
+  { icon: "web-frontend", label: "Web & Frontend", slug: "web-frontend" },
+  { icon: "growth-seo", label: "Growth & SEO", slug: "growth-seo" },
+  { icon: "learning-research", label: "Learning & Research", slug: "learning-research" },
+  { icon: "writing-explaining", label: "Writing & Explaining", slug: "writing-explaining" },
 ];
 
 export default function HomePage() {
@@ -80,19 +82,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What I work with — capability icons (real skills, no invented metrics). */}
+      {/* Browse by area — clickable category tiles → Portfolio filtered. */}
       <section className="mx-auto max-w-5xl px-6 py-12">
         <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-          What I work with
+          Browse my work by area
         </h2>
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {CAPABILITIES.map((c) => (
-            <li
-              key={c.label}
-              className="flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3"
-            >
-              <Icon name={c.icon} className="h-6 w-6 shrink-0 text-primary" />
-              <span className="text-sm text-foreground">{c.label}</span>
+          {CATEGORIES.map((c) => (
+            <li key={c.slug}>
+              <Link
+                href={`/portfolio?category=${c.slug}`}
+                className="group flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 transition-colors hover:border-border-hover"
+              >
+                <Icon name={c.icon} className="h-6 w-6 shrink-0 text-primary" />
+                <span className="text-sm text-foreground group-hover:text-primary">
+                  {c.label}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
