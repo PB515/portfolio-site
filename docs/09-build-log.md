@@ -32,6 +32,10 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 2026-06-03 | 3 | Styled file inputs + cover size hint | polish | 13094e2
 *Phase 3 COMPLETE (admin CMS) — NOT yet deployed (kept local per request). Denial gate RE-VERIFIED on real data: anon sees only published projects/notes, drafts hidden, leads denied, resume resolves. Editors all tested working locally (incl. uploads). Build the editors on the proven Phase-1 RLS; admin CRUD uses the logged-in session.*
 
+2026-06-03 | 4 | Public DB reads (portfolio/notes/detail) + Markdown + resume link | works (ISR) | 28e877f
+2026-06-03 | 4 | Contact form → /api/contact → leads + admin Messages inbox | verified e2e | ccf8f7c
+*Phase 4 COMPLETE — public content live-reads + working contact (in-admin inbox). Deps added (approved): react-markdown, remark-gfm. Static asset folders + ASSETS.md added (user supplying logo/icons/decor/photos). NEXT: Phase 5 polish + hero text→image. ROTATE sb_secret_ key (now load-bearing in the contact route).*
+
 ### Phase 3 → Phase 4 resume note
 Admin CMS is done + secure (re-verified denial gate on live data). KEY GAP before this is useful publicly: **the public /portfolio and /field-notes still show empty-states — they don't READ the DB yet.** That's Phase 4: wire public pages to read PUBLISHED rows (ISR, revalidate on publish), render project/note detail by slug (Markdown body → needs a renderer dep — ASK), wire the About résumé link to the current resume, and wire the contact form for real (server route: honeypot + validation + rate-limit → leads + email; needs the service-role key, so ROTATE it first, and an email provider dep — ASK). Decision pending: deploy Phase 3 alone now, or build Phase 4 then deploy together (so published content actually shows live). Markdown rendering + email are the two dep approvals Phase 4 needs.
 
