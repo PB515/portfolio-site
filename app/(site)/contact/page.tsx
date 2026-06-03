@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = {
@@ -28,6 +29,15 @@ export default function ContactPage() {
       <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_1.2fr]">
         {/* Direct links (these work now) */}
         <div>
+          <div className="relative mb-6 aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-sm)]">
+            <Image
+              src="/images/purven-contact.jpeg"
+              alt="Purven Bhavsar"
+              fill
+              sizes="(max-width: 640px) 60vw, 200px"
+              className="object-cover object-top"
+            />
+          </div>
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Reach me directly
           </h2>

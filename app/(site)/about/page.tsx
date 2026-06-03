@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 
 export const revalidate = 60;
@@ -65,14 +66,25 @@ export default async function AboutPage() {
   return (
     <>
       {/* Intro */}
-      <section className="mx-auto max-w-3xl px-6 pt-20 pb-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-          About
-        </p>
-        <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-          I learn complex systems quickly — and turn them into practical,
-          working solutions.
-        </h1>
+      <section className="mx-auto grid max-w-3xl items-center gap-8 px-6 pt-20 pb-6 sm:grid-cols-[1.5fr_1fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            About
+          </p>
+          <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            I learn complex systems quickly — and turn them into practical,
+            working solutions.
+          </h1>
+        </div>
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-sm)]">
+          <Image
+            src="/images/purven-about.jpeg"
+            alt="Purven Bhavsar"
+            fill
+            sizes="(max-width: 640px) 50vw, 200px"
+            className="object-cover object-top"
+          />
+        </div>
       </section>
 
       {/* Story (from the brief, first person) */}

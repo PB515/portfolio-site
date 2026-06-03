@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { JsonLd } from "@/components/JsonLd";
 
 const PERSON = {
@@ -34,34 +35,46 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={PERSON} />
-      {/* Hero — identity first (doc 02/04). Copper used only on the eyebrow + accent. */}
-      <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 sm:pt-28">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-          AI Automation · Systems Thinking
-        </p>
-        <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-          I learn complex systems quickly — and turn them into{" "}
-          <span className="text-primary">practical, working solutions.</span>
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-          Today I build practical AI automation, SEO, and web systems. I&apos;m
-          heading toward systems, infrastructure, and economic growth — an MBA
-          in Infrastructure Development begins in 2026.
-        </p>
+      {/* Hero — identity first (doc 02/04) + portrait. Copper only on eyebrow + accent. */}
+      <section className="mx-auto grid max-w-5xl items-center gap-10 px-6 pt-16 pb-12 sm:pt-24 md:grid-cols-[1.25fr_1fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            AI Automation · Systems Thinking
+          </p>
+          <h1 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+            I learn complex systems quickly — and turn them into{" "}
+            <span className="text-primary">practical, working solutions.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            Today I build practical AI automation, SEO, and web systems. I&apos;m
+            heading toward systems, infrastructure, and economic growth — an MBA
+            in Infrastructure Development begins in 2026.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link
+              href="/contact"
+              className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+            >
+              Let&apos;s connect
+            </Link>
+            <Link
+              href="/portfolio"
+              className="rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-border-hover"
+            >
+              View my work
+            </Link>
+          </div>
+        </div>
 
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link
-            href="/contact"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
-          >
-            Let&apos;s connect
-          </Link>
-          <Link
-            href="/portfolio"
-            className="rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-border-hover"
-          >
-            View my work
-          </Link>
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-md)] md:max-w-sm">
+          <Image
+            src="/images/purven-hero.jpeg"
+            alt="Purven Bhavsar"
+            fill
+            priority
+            sizes="(max-width: 768px) 80vw, 360px"
+            className="object-cover object-top"
+          />
         </div>
       </section>
 
