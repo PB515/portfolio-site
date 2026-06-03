@@ -60,9 +60,12 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-border">
-        <p className="mx-auto max-w-6xl px-6 py-5 text-xs text-muted">
-          © {year} Purven Bhavsar
-        </p>
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 text-xs text-muted">
+          <span>© {year} Purven Bhavsar</span>
+          <Link href="/admin" className="transition-colors hover:text-foreground">
+            Admin
+          </Link>
+        </div>
       </div>
     </footer>
   );
