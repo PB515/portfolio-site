@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { Icon, type IconName } from "@/components/Icon";
 
-const CONNECT = [
-  { href: "https://www.linkedin.com/in/purvenbhavsar", label: "LinkedIn" },
-  { href: "https://github.com/PB515", label: "GitHub" },
-  { href: "mailto:bhavsarpurven515@gmail.com", label: "Email" },
+const CONNECT: { href: string; label: string; icon: IconName }[] = [
+  { href: "https://www.linkedin.com/in/purvenbhavsar", label: "LinkedIn", icon: "linkedin" },
+  { href: "https://github.com/PB515", label: "GitHub", icon: "github" },
+  { href: "mailto:bhavsarpurven515@gmail.com", label: "Email", icon: "email" },
 ];
 
 const NAV = [
@@ -49,8 +50,9 @@ export function SiteFooter() {
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="text-foreground transition-colors hover:text-primary"
+              className="inline-flex items-center gap-2 text-foreground transition-colors hover:text-primary"
             >
+              <Icon name={c.icon} className="h-4 w-4" />
               {c.label}
             </a>
           ))}

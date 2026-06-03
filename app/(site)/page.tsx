@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { JsonLd } from "@/components/JsonLd";
+import { Icon, type IconName } from "@/components/Icon";
 
 const PERSON = {
   "@context": "https://schema.org",
@@ -23,12 +24,13 @@ const PERSON = {
   ],
 };
 
-const SKILLS = [
-  "AI Automation",
-  "n8n Workflows",
-  "SEO",
-  "Web Development",
-  "Systems Thinking",
+const CAPABILITIES: { icon: IconName; label: string }[] = [
+  { icon: "ai-automation", label: "AI Automation" },
+  { icon: "systems-thinking", label: "Systems Thinking" },
+  { icon: "frontend-engineering", label: "Web & Frontend" },
+  { icon: "growth-marketing", label: "Growth & SEO" },
+  { icon: "learning-research", label: "Learning & Research" },
+  { icon: "writing-explaining", label: "Writing & Explaining" },
 ];
 
 export default function HomePage() {
@@ -78,18 +80,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* What I work with — real skills as evidence (no invented metrics). */}
-      <section className="mx-auto max-w-5xl px-6 py-10">
+      {/* What I work with — capability icons (real skills, no invented metrics). */}
+      <section className="mx-auto max-w-5xl px-6 py-12">
         <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
           What I work with
         </h2>
-        <ul className="mt-4 flex flex-wrap gap-2.5">
-          {SKILLS.map((s) => (
+        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {CAPABILITIES.map((c) => (
             <li
-              key={s}
-              className="rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-foreground"
+              key={c.label}
+              className="flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3"
             >
-              {s}
+              <Icon name={c.icon} className="h-6 w-6 shrink-0 text-primary" />
+              <span className="text-sm text-foreground">{c.label}</span>
             </li>
           ))}
         </ul>

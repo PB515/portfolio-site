@@ -110,6 +110,10 @@ body {
 [data-theme="canopy"] .decor-root { display: none; }
 [data-theme="canopy"] .decor-canopy { display: block; }
 
+/* Logo mark (navy+copper artwork): suits Canopy as-is; lighten to white on Root. */
+.logo-mark { filter: brightness(0) invert(1); }
+[data-theme="canopy"] .logo-mark { filter: none; }
+
 /* Accessibility: honor reduced motion globally (doc 04/10).
    Named motion pieces (reveal, pop-in) opt back in only when motion is allowed. */
 @media (prefers-reduced-motion: reduce) {
