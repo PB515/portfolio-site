@@ -194,7 +194,7 @@ export default async function AboutPage() {
       </Section>
 
       {/* Education (real, from the brief) */}
-      <Section eyebrow="Education" title="Education">
+      <Section eyebrow="Education" title="Where I studied">
         <ul className="space-y-4 text-base">
           <li>
             <p className="font-medium text-foreground">
@@ -215,7 +215,7 @@ export default async function AboutPage() {
       </Section>
 
       {/* Experience — included now, content TBD (decision B2) */}
-      <Section eyebrow="Experience" title="Experience">
+      <Section eyebrow="Experience" title="What I've been building">
         <p className="text-base">
           Over a year of hands-on work building AI automation, SEO, and web
           projects. A detailed experience timeline is on the way — in the
