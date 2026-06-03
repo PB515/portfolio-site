@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
+import { Icon } from "@/components/Icon";
 
 export const revalidate = 60;
 
@@ -27,6 +28,29 @@ const SKILLS_FUTURE = [
 ];
 
 const VALUES = ["Learning", "Curiosity", "Innovation", "Growth", "Economic Development"];
+
+const JOURNEY: { when: string; text: string }[] = [
+  {
+    when: "As a kid",
+    text: "Fascinated by how computers, TVs, and electronics worked — I opened up old CPUs and devices just to see inside.",
+  },
+  {
+    when: "School labs",
+    text: "That curiosity grew in the school computer labs, where I spent as much time as I could.",
+  },
+  {
+    when: "The HTML moment",
+    text: "A teacher introduced HTML and website creation. Building my first webpage made me decide to become a Computer Engineer.",
+  },
+  {
+    when: "Today",
+    text: "I build practical AI automation, web technologies, and digital systems.",
+  },
+  {
+    when: "Next",
+    text: "An MBA in Infrastructure Development (2026) — heading toward large-scale systems, infrastructure, and economic growth.",
+  },
+];
 
 function Section({
   eyebrow,
@@ -89,22 +113,17 @@ export default async function AboutPage() {
 
       {/* Story (from the brief, first person) */}
       <Section eyebrow="The story" title="How I got here">
-        <p>
-          I became interested in technology as a child. I was fascinated by how
-          computers, televisions, and electronics worked, and I often opened up
-          old CPUs and devices just to understand what was happening inside.
-        </p>
-        <p>
-          That curiosity grew in school computer labs. The turning point came
-          when a teacher introduced HTML and website creation — building my
-          first webpage made me realise I wanted to become a Computer Engineer.
-        </p>
-        <p>
-          Today I work with AI automation, web technologies, and digital
-          systems. My long-term interests reach beyond software into large-scale
-          systems, infrastructure, and economic development — which is why I&apos;m
-          pursuing an MBA in Infrastructure Development.
-        </p>
+        <ol className="relative ml-1 border-l border-border">
+          {JOURNEY.map((m) => (
+            <li key={m.when} className="relative pb-7 pl-6 last:pb-0">
+              <span className="absolute -left-[6px] top-2 h-3 w-3 rounded-full bg-primary ring-4 ring-[var(--background)]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+                {m.when}
+              </p>
+              <p className="mt-1 text-base text-muted">{m.text}</p>
+            </li>
+          ))}
+        </ol>
       </Section>
 
       {/* Philosophy */}
@@ -140,7 +159,8 @@ export default async function AboutPage() {
         </p>
         <div className="grid gap-6 pt-2 sm:grid-cols-2">
           <div className="rounded-xl border border-border bg-surface p-5">
-            <p className="text-sm font-semibold text-foreground">
+            <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              <Icon name="ai-automation" className="h-5 w-5 text-primary" />
               Today — building
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -155,7 +175,8 @@ export default async function AboutPage() {
             </ul>
           </div>
           <div className="rounded-xl border border-border bg-surface p-5">
-            <p className="text-sm font-semibold text-foreground">
+            <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              <Icon name="growth-seo" className="h-5 w-5 text-primary" />
               Heading toward — at scale
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
