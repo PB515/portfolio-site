@@ -16,12 +16,20 @@ type Project = {
   external_url: string | null;
 };
 
+function decodeSlug(slug: string) {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 async function getProject(slug: string) {
   const supabase = createPublicClient();
   const { data } = await supabase
     .from("projects")
     .select("title,summary,body,cover_path,role,stack,outcome,external_url")
-    .eq("slug", slug)
+    .eq("slug", decodeSlug(slug))
     .eq("status", "published")
     .maybeSingle();
   return data as Project | null;

@@ -14,12 +14,20 @@ type Note = {
   published_at: string | null;
 };
 
+function decodeSlug(slug: string) {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 async function getNote(slug: string) {
   const supabase = createPublicClient();
   const { data } = await supabase
     .from("field_notes")
     .select("title,excerpt,body,cover_path,published_at")
-    .eq("slug", slug)
+    .eq("slug", decodeSlug(slug))
     .eq("status", "published")
     .maybeSingle();
   return data as Note | null;
