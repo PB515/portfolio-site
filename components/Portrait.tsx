@@ -54,7 +54,7 @@ export function Portrait({
         fill
         priority={priority}
         sizes={sizes}
-        className="object-contain object-bottom transition-transform duration-500 ease-out group-hover:scale-105"
+        className="object-cover object-bottom transition-transform duration-500 ease-out group-hover:scale-105"
       />
       {/* Double inner frame — thin offset copper line for depth. */}
       <div
