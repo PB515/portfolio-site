@@ -26,6 +26,15 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 ```
 *Phase 2 COMPLETE — full public site live (Home, About, Contact, Portfolio + Field-Notes empty-states), both perspectives, admin guarded. Interim SVG motif + logo (user may supply final SVGs to swap into SiteDecor/Logo).*
 
+2026-06-03 | 3 | Admin shell + Categories CRUD | tested OK (add/delete) | d51f5e6
+2026-06-03 | 3 | Projects + Field Notes + Resume editors | CRUD + cover/resume upload | d3d5a91
+2026-06-03 | 3 | Raise server-action bodySizeLimit → 15mb | fixed upload >1MB error | 5d63b01
+2026-06-03 | 3 | Styled file inputs + cover size hint | polish | 13094e2
+*Phase 3 COMPLETE (admin CMS) — NOT yet deployed (kept local per request). Denial gate RE-VERIFIED on real data: anon sees only published projects/notes, drafts hidden, leads denied, resume resolves. Editors all tested working locally (incl. uploads). Build the editors on the proven Phase-1 RLS; admin CRUD uses the logged-in session.*
+
+### Phase 3 → Phase 4 resume note
+Admin CMS is done + secure (re-verified denial gate on live data). KEY GAP before this is useful publicly: **the public /portfolio and /field-notes still show empty-states — they don't READ the DB yet.** That's Phase 4: wire public pages to read PUBLISHED rows (ISR, revalidate on publish), render project/note detail by slug (Markdown body → needs a renderer dep — ASK), wire the About résumé link to the current resume, and wire the contact form for real (server route: honeypot + validation + rate-limit → leads + email; needs the service-role key, so ROTATE it first, and an email provider dep — ASK). Decision pending: deploy Phase 3 alone now, or build Phase 4 then deploy together (so published content actually shows live). Markdown rendering + email are the two dep approvals Phase 4 needs.
+
 ### Phase 2 → Phase 3 resume note
 Public site is done and live. Phase 3 = the **admin CMS** (the reason this is an app): build the editors on the already-proven-secure foundation (auth + RLS + denial gate from Phase 1). Order: data-access helpers → Categories CRUD → Projects CRUD → Field Notes CRUD → Resume upload → cover-image upload (Supabase Storage) → **re-run the denial gate** after writes are wired. Admin CRUD uses the logged-in admin's SESSION (anon key + RLS `authenticated` policies) — the service-role key is only needed for the contact insert (Phase 4), so it's still not load-bearing here (but rotate it). Editor body starts as a **Markdown textarea** (zero deps); the rich-text WYSIWYG is a later enhancement needing a dep approval. Open `AGENTS.md` first.
 *Phase 0 COMPLETE — live at https://portfolio-site-psi-ruddy.vercel.app.*
