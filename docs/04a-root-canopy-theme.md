@@ -59,6 +59,8 @@ All public pages support both themes (required): Home, About, Portfolio, Portfol
 ## 11. Accessibility
 Maintain minimum **WCAG AA** contrast. Verify text, link, button, and focus contrast in **both** themes (copper-on-background and text-on-copper are the watch points — see token notes in globals.css).
 
+**AA adjustment (Phase 5):** on Root, copper `#B87333` as small text on the dark olive bg measured ~3.9:1 (under 4.5). Resolved by mapping Root `--primary` to the **lighter copper `#C67A3D`** (links/accents/button background) with **dark text (`#20291F`) on filled buttons** → ~4.6:1. Canopy (`#A8622A` on cream, white text on copper) already passes and is unchanged. Copper *family* per §5 is intact; this only picks which shade maps to `--primary` on Root.
+
 ## 12. Acceptance criteria
 Theme system is complete only if: Root loads by default · Canopy selectable · preference persists · all pages support both themes · **no duplicate page implementations** · components share structure · only theme tokens change · accessibility passes · mobile + desktop both correct.
 

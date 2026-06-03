@@ -20,12 +20,14 @@
   --foreground: #f8f6f0;      /* warm white */
   --muted: #b8c0b3;           /* muted sage */
   --border: rgba(184, 192, 179, 0.15);
-  --border-hover: #b87333;
-  --primary: #b87333;         /* copper */
-  --primary-hover: #c67a3d;   /* copper light */
+  --border-hover: #c67a3d;
+  /* AA fix: on the dark olive bg, copper #b87333 was ~3.9:1 (under 4.5). Use the
+     lighter copper for links/accents/button-bg + DARK text on buttons → ~4.6:1. */
+  --primary: #c67a3d;         /* copper light — links, accents, button bg */
+  --primary-hover: #d08a4a;   /* lighter on hover */
   --primary-dark: #a56a2a;
-  --accent: #c67a3d;
-  --on-primary: #f8f6f0;      /* text on copper — verify AA (use bold/large) */
+  --accent: #d08a4a;
+  --on-primary: #20291f;      /* DARK text on copper buttons — passes AA on --primary */
   --shadow-hover: 0 8px 24px rgba(184, 115, 51, 0.25);
   --success: #7fb069;
   --warning: #d6a33e;
