@@ -31,7 +31,7 @@ async function saveNote(formData: FormData) {
   const body = String(formData.get("body") ?? "");
   if (!body.trim()) return back(id, "Body is required.");
 
-  const slug = String(formData.get("slug") ?? "").trim() || slugify(title);
+  const slug = slugify(String(formData.get("slug") ?? "").trim() || title);
   const status = String(formData.get("status") ?? "draft");
 
   const payload: Record<string, unknown> = {

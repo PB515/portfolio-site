@@ -25,7 +25,7 @@ async function saveProject(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
   if (!title) return back(id, "Title is required.");
 
-  const slug = (String(formData.get("slug") ?? "").trim() || slugify(title));
+  const slug = slugify(String(formData.get("slug") ?? "").trim() || title);
   const status = String(formData.get("status") ?? "draft");
   const stack = String(formData.get("stack") ?? "")
     .split(",")
