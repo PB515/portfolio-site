@@ -12,15 +12,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://portfolio-site-psi-ruddy.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   // Template keeps "Purven Bhavsar" appearing once per page (doc 11 launch gate).
   title: {
-    default: "Purven Bhavsar",
+    default: "Purven Bhavsar — Engineer, Automate, Grow",
     template: "%s · Purven Bhavsar",
   },
   description:
-    "Purven Bhavsar — I learn complex systems quickly and turn them into practical, working solutions.",
-  // metadataBase: set to the real production URL at launch (canonical/OG depend on it).
+    "Purven Bhavsar — I learn complex systems quickly and turn them into practical, working solutions. AI automation, web, and systems thinking.",
+  openGraph: {
+    type: "website",
+    siteName: "Purven Bhavsar",
+    url: SITE_URL,
+    title: "Purven Bhavsar — Engineer, Automate, Grow",
+    description:
+      "I learn complex systems quickly and turn them into practical, working solutions.",
+    images: ["/og/og-default.png"], // add public/og/og-default.png (1200×630)
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Purven Bhavsar",
+    description:
+      "I learn complex systems quickly and turn them into practical, working solutions.",
+    images: ["/og/og-default.png"],
+  },
 };
 
 // Applies the saved Perspective before paint (no flash). Default = Root.

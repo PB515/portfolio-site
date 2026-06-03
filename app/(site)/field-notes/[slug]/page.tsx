@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 import { Markdown } from "@/components/Markdown";
+import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 60;
 
@@ -45,8 +46,19 @@ export default async function FieldNotePage({
 
   const cover = publicAsset("covers", n.cover_path);
 
+  const article = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: n.title,
+    description: n.excerpt ?? undefined,
+    datePublished: n.published_at ?? undefined,
+    image: cover ?? undefined,
+    author: { "@type": "Person", name: "Purven Bhavsar" },
+  };
+
   return (
     <main className="mx-auto max-w-3xl px-6 pt-16 pb-16">
+      <JsonLd data={article} />
       <Link href="/field-notes" className="text-sm text-muted hover:text-foreground">
         ← Field Notes
       </Link>

@@ -1,4 +1,26 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
+
+const PERSON = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Purven Bhavsar",
+  url: "https://portfolio-site-psi-ruddy.vercel.app",
+  description:
+    "Learns complex systems quickly and turns them into practical, working solutions.",
+  knowsAbout: [
+    "AI Automation",
+    "Workflow Automation",
+    "SEO",
+    "Web Development",
+    "Systems Thinking",
+    "Infrastructure Development",
+  ],
+  sameAs: [
+    "https://github.com/PB515",
+    "https://www.linkedin.com/in/purvenbhavsar",
+  ],
+};
 
 const SKILLS = [
   "AI Automation",
@@ -11,6 +33,7 @@ const SKILLS = [
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={PERSON} />
       {/* Hero — identity first (doc 02/04). Copper used only on the eyebrow + accent. */}
       <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 sm:pt-28">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
