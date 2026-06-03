@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { JsonLd } from "@/components/JsonLd";
 import { Icon, type IconName } from "@/components/Icon";
+import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 
 const PERSON = {
   "@context": "https://schema.org",
@@ -35,7 +36,24 @@ const CATEGORIES: { icon: IconName; label: string; slug: string }[] = [
   { icon: "writing-explaining", label: "Writing & Explaining", slug: "writing-explaining" },
 ];
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const supabase = createPublicClient();
+  const { data: featuredData } = await supabase
+    .from("projects")
+    .select("title,slug,summary,cover_path")
+    .eq("status", "published")
+    .eq("is_featured", true)
+    .order("sort_order")
+    .limit(3);
+  const featured = (featuredData ?? []) as {
+    title: string;
+    slug: string;
+    summary: string;
+    cover_path: string | null;
+  }[];
+
   return (
     <>
       <JsonLd data={PERSON} />
@@ -81,6 +99,46 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* Featured work — projects flagged is_featured in admin. */}
+      {featured.length > 0 && (
+        <section className="mx-auto max-w-5xl px-6 py-12">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              Featured work
+            </h2>
+            <Link href="/portfolio" className="text-sm text-primary hover:text-primary-hover">
+              All projects →
+            </Link>
+          </div>
+          <ul className="mt-6 grid gap-6 sm:grid-cols-3">
+            {featured.map((p) => {
+              const cover = publicAsset("covers", p.cover_path);
+              return (
+                <li key={p.slug}>
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-border-hover"
+                  >
+                    {cover && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover" />
+                    )}
+                    <div className="p-4">
+                      <h3 className="font-medium text-foreground group-hover:text-primary">
+                        {p.title}
+                      </h3>
+                      {p.summary && (
+                        <p className="mt-1 line-clamp-2 text-sm text-muted">{p.summary}</p>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* Browse by area — clickable category tiles → Portfolio filtered. */}
       <section className="mx-auto max-w-5xl px-6 py-12">

@@ -42,6 +42,7 @@ async function saveProject(formData: FormData) {
     outcome: String(formData.get("outcome") ?? "").trim() || null,
     external_url: String(formData.get("external_url") ?? "").trim() || null,
     status,
+    is_featured: formData.get("is_featured") === "on",
     updated_at: new Date().toISOString(),
   };
 
@@ -116,6 +117,7 @@ export default async function ProjectEditorPage({
     id: string; title: string; slug: string; summary: string; body: string | null;
     category_id: string | null; cover_path: string | null; role: string | null;
     stack: string[] | null; outcome: string | null; external_url: string | null; status: string;
+    is_featured: boolean | null;
   };
   let p: Partial<Project> = { status: "draft", stack: [] };
   if (!isNew) {
@@ -200,6 +202,16 @@ export default async function ProjectEditorPage({
             <input name="external_url" defaultValue={p.external_url ?? ""} placeholder="https://…" className={field} />
           </label>
         </div>
+
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="is_featured"
+            defaultChecked={!!p.is_featured}
+            className="h-4 w-4 accent-[var(--primary)]"
+          />
+          <span className="text-muted">Feature on the home page</span>
+        </label>
 
         <label className="flex flex-col gap-1 text-sm">
           <span className="text-muted">Cover image (optional)</span>
