@@ -54,6 +54,20 @@ export default async function HomePage() {
     cover_path: string | null;
   }[];
 
+  const { data: featuredNotesData } = await supabase
+    .from("field_notes")
+    .select("title,slug,excerpt,cover_path")
+    .eq("status", "published")
+    .eq("is_featured", true)
+    .order("published_at", { ascending: false })
+    .limit(3);
+  const featuredNotes = (featuredNotesData ?? []) as {
+    title: string;
+    slug: string;
+    excerpt: string | null;
+    cover_path: string | null;
+  }[];
+
   return (
     <>
       <JsonLd data={PERSON} />
@@ -178,6 +192,46 @@ export default async function HomePage() {
                       </h3>
                       {p.summary && (
                         <p className="mt-1 line-clamp-2 text-sm text-muted">{p.summary}</p>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {/* Featured field notes — below Featured work. */}
+      {featuredNotes.length > 0 && (
+        <section className="mx-auto max-w-5xl px-6 py-12">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              Featured field notes
+            </h2>
+            <Link href="/field-notes" className="text-sm text-primary hover:text-primary-hover">
+              All notes →
+            </Link>
+          </div>
+          <ul className="mt-6 grid gap-6 sm:grid-cols-3">
+            {featuredNotes.map((n) => {
+              const cover = publicAsset("covers", n.cover_path);
+              return (
+                <li key={n.slug}>
+                  <Link
+                    href={`/field-notes/${n.slug}`}
+                    className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-border-hover"
+                  >
+                    {cover && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover" />
+                    )}
+                    <div className="p-4">
+                      <h3 className="font-medium text-foreground group-hover:text-primary">
+                        {n.title}
+                      </h3>
+                      {n.excerpt && (
+                        <p className="mt-1 line-clamp-2 text-sm text-muted">{n.excerpt}</p>
                       )}
                     </div>
                   </Link>

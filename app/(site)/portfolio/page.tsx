@@ -40,6 +40,19 @@ export default async function PortfolioPage({
     ? (categories.find((c) => c.slug === category) ?? null)
     : null;
 
+  // Featured row (unfiltered view only)
+  let featured: Project[] = [];
+  if (!selected) {
+    const { data: f } = await supabase
+      .from("projects")
+      .select("title,slug,summary,cover_path")
+      .eq("status", "published")
+      .eq("is_featured", true)
+      .order("sort_order")
+      .limit(5);
+    featured = (f ?? []) as Project[];
+  }
+
   let q = supabase
     .from("projects")
     .select("title,slug,summary,cover_path")
@@ -62,6 +75,41 @@ export default async function PortfolioPage({
         AI automation, SEO, and web — the work that turns complex systems into
         practical, working solutions.
       </p>
+
+      {/* Featured row (unfiltered view only) */}
+      {featured.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Featured
+          </h2>
+          <ul className="mt-4 grid gap-6 sm:grid-cols-3">
+            {featured.map((p) => {
+              const cover = publicAsset("covers", p.cover_path);
+              return (
+                <li key={p.slug}>
+                  <Link
+                    href={`/portfolio/${p.slug}`}
+                    className="group block overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-border-hover"
+                  >
+                    {cover && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover" />
+                    )}
+                    <div className="p-4">
+                      <h3 className="font-medium text-foreground group-hover:text-primary">
+                        {p.title}
+                      </h3>
+                      {p.summary && (
+                        <p className="mt-1 line-clamp-2 text-sm text-muted">{p.summary}</p>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {/* Category filter */}
       {categories.length > 0 && (
