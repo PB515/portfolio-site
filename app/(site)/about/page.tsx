@@ -76,13 +76,13 @@ export default async function AboutPage() {
             working solutions.
           </h1>
         </div>
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-sm)]">
+        <div className="relative mx-auto h-60 w-full max-w-[220px]">
           <Image
-            src="/images/purven-about.jpeg"
+            src="/images/purven-about.png"
             alt="Purven Bhavsar"
             fill
-            sizes="(max-width: 640px) 50vw, 200px"
-            className="object-cover object-top"
+            sizes="(max-width: 640px) 55vw, 220px"
+            className="object-contain object-bottom"
           />
         </div>
       </section>
