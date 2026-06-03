@@ -21,7 +21,13 @@ DATE        | PHASE | PROMPT SUMMARY                          | RESULT / NOTES  
 2026-06-02  | 2     | Theme-aware bg motif (circuit/leaves)   | one SVG, recolors per theme     | 16bc9e1
 2026-06-02  | 2     | Merge phase-2 → main (partial)          | LIVE (shell+theme+home)         | 16bc9e1
 ```
-*Phase 2 IN PROGRESS — shell + Root/Canopy theme + motif are live. Remaining: About (real story/philosophy/skills-arc/Experience[TBD]/resume link), Contact UI, restyle Portfolio/Field-Notes index empty-states. About/Contact were not built before this deploy (placeholders live).*
+2026-06-02  | 2     | About + Contact UI + empty-states       | Built (brief-grounded)          | fd0a2e9
+2026-06-02  | 2     | Merge phase-2 → main (complete)         | LIVE — full public site         | fd0a2e9
+```
+*Phase 2 COMPLETE — full public site live (Home, About, Contact, Portfolio + Field-Notes empty-states), both perspectives, admin guarded. Interim SVG motif + logo (user may supply final SVGs to swap into SiteDecor/Logo).*
+
+### Phase 2 → Phase 3 resume note
+Public site is done and live. Phase 3 = the **admin CMS** (the reason this is an app): build the editors on the already-proven-secure foundation (auth + RLS + denial gate from Phase 1). Order: data-access helpers → Categories CRUD → Projects CRUD → Field Notes CRUD → Resume upload → cover-image upload (Supabase Storage) → **re-run the denial gate** after writes are wired. Admin CRUD uses the logged-in admin's SESSION (anon key + RLS `authenticated` policies) — the service-role key is only needed for the contact insert (Phase 4), so it's still not load-bearing here (but rotate it). Editor body starts as a **Markdown textarea** (zero deps); the rich-text WYSIWYG is a later enhancement needing a dep approval. Open `AGENTS.md` first.
 *Phase 0 COMPLETE — live at https://portfolio-site-psi-ruddy.vercel.app.*
 *Phase 1 (branch `phase-1`): security foundation built + denial gate proven (see note). Pending: confirm sign-ups disabled + positive login test, then merge to main.*
 
