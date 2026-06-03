@@ -2,28 +2,30 @@
 
 Save static assets at these **exact** paths (all under `public/`). Tell me when they're in and I'll wire each. Compress images first (Squoosh / TinyPNG).
 
+> **All PNG is fine.** High-resolution + transparent where noted, then compress. SVG not required anywhere.
+
 ## Brand / system
 | File (save as) | Format | Notes |
 |---|---|---|
-| `public/brand/logo.svg` | SVG, transparent | Use one flat colour or `currentColor` so it can tint to copper per theme. |
-| `public/brand/favicon-source.svg` | SVG, square | I'll generate `favicon.ico` + sizes from this. |
+| `public/brand/logo.png` | PNG, transparent, high-res (≥ 4× display, e.g. ~600px wide) | Header shows it ~36px tall, so give plenty of resolution. |
+| `public/brand/favicon-source.png` | PNG, **square 512×512**, transparent | I'll generate the favicon sizes from this. |
 | `public/og/og-default.png` | PNG **1200×630** | Social share card. No fake people. |
 
 ## Decor (theme-baked — two files, shown one per perspective)
 | File | Format | Notes |
 |---|---|---|
-| `public/ui/decor-root.svg` | SVG, transparent | Bake in **Root** colours (copper on olive feel). Shown in Root only. |
-| `public/ui/decor-canopy.svg` | SVG, transparent | Bake in **Canopy** colours (sage on cream feel). Shown in Canopy only. |
+| `public/ui/decor-root.png` | PNG, transparent, large (e.g. ~1600px wide) | Already in **Root** colours (copper/olive). Shown in Root only. |
+| `public/ui/decor-canopy.png` | PNG, transparent, large | Already in **Canopy** colours (sage/cream). Shown in Canopy only. |
 
-*(These replace my hand-drawn motif. Because we show one file per theme, baking colours in is fine.)*
+*(Two pre-coloured files = no recolouring needed. These replace my hand-drawn motif.)*
 
 ## Social icons
-`public/ui/icon-github.svg` · `public/ui/icon-linkedin.svg` · `public/ui/icon-email.svg`
-→ SVG, transparent, **single flat colour or `currentColor`** (so I tint them per theme).
+`public/ui/icon-github.png` · `public/ui/icon-linkedin.png` · `public/ui/icon-email.png`
+→ PNG, transparent, ~128px square. **Single-colour silhouette** (any one colour) so I can tint per theme — or just make them copper if you'd rather not bother.
 
 ## Skill / capability icons
-`public/ui/icon-ai-automation.svg` · `public/ui/icon-systems-thinking.svg` · `public/ui/icon-frontend-engineering.svg` · `public/ui/icon-growth-marketing.svg` · `public/ui/icon-learning-research.svg` · `public/ui/icon-writing-explaining.svg`
-→ SVG, transparent, single colour / `currentColor`, consistent stroke weight (line-icon style reads best with the calm vibe).
+`public/ui/icon-ai-automation.png` · `public/ui/icon-systems-thinking.png` · `public/ui/icon-frontend-engineering.png` · `public/ui/icon-growth-marketing.png` · `public/ui/icon-learning-research.png` · `public/ui/icon-writing-explaining.png`
+→ PNG, transparent, ~128px square, **single-colour silhouette**, consistent style (line or solid — pick one and keep it consistent).
 
 ## Your photos
 | File (save as) | Where it's used | Best format |
