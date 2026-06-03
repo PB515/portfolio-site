@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 import { Markdown } from "@/components/Markdown";
+import { FeaturedStrip, type StripItem } from "@/components/FeaturedStrip";
 
 export const revalidate = 60;
 
@@ -35,6 +36,21 @@ async function getProject(slug: string) {
   return data as Project | null;
 }
 
+async function getMoreProjects(excludeSlug: string): Promise<StripItem[]> {
+  const supabase = createPublicClient();
+  const { data } = await supabase
+    .from("projects")
+    .select("title,slug,summary,cover_path")
+    .eq("status", "published")
+    .eq("is_featured", true)
+    .neq("slug", excludeSlug)
+    .order("sort_order")
+    .limit(3);
+  return ((data ?? []) as { title: string; slug: string; summary: string; cover_path: string | null }[]).map(
+    (p) => ({ title: p.title, slug: p.slug, blurb: p.summary, cover: publicAsset("covers", p.cover_path) }),
+  );
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -54,6 +70,7 @@ export default async function ProjectDetailPage({
   const p = await getProject(slug);
   if (!p) notFound();
 
+  const more = await getMoreProjects(decodeSlug(slug));
   const cover = publicAsset("covers", p.cover_path);
 
   return (
@@ -110,9 +127,17 @@ export default async function ProjectDetailPage({
         </div>
       )}
 
-      <div className="mt-12 border-t border-border pt-8">
-        <Link href="/contact" className="text-sm font-medium text-primary hover:text-primary-hover">
-          Want to talk about work like this? Get in touch →
+      <FeaturedStrip heading="More work" items={more} basePath="/portfolio" />
+
+      <div className="mt-14 border-t border-border pt-10">
+        <p className="text-xl font-medium tracking-tight text-foreground">
+          Want to talk about work like this?
+        </p>
+        <Link
+          href="/contact"
+          className="mt-4 inline-block rounded-full bg-cta px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
+        >
+          Get in touch →
         </Link>
       </div>
     </main>
