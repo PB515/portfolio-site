@@ -29,12 +29,12 @@ export default function ContactPage() {
       <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_1.2fr]">
         {/* Direct links (these work now) */}
         <div>
-          <div className="relative mb-6 h-60 w-full max-w-[220px]">
+          <div className="relative mb-6 h-72 w-full max-w-[280px] sm:h-80">
             <Image
               src="/images/purven-contact.png"
               alt="Purven Bhavsar"
               fill
-              sizes="(max-width: 640px) 60vw, 220px"
+              sizes="(max-width: 640px) 70vw, 280px"
               className="object-contain object-bottom"
             />
           </div>

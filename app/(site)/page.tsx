@@ -38,7 +38,7 @@ export default function HomePage() {
     <>
       <JsonLd data={PERSON} />
       {/* Hero — identity first (doc 02/04) + portrait. Copper only on eyebrow + accent. */}
-      <section className="mx-auto grid max-w-5xl items-center gap-10 px-6 pt-16 pb-12 sm:pt-24 md:grid-cols-[1.25fr_1fr]">
+      <section className="mx-auto grid max-w-5xl items-center gap-8 px-6 pt-16 pb-12 sm:pt-24 md:grid-cols-[1fr_1fr]">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             AI Automation · Systems Thinking
@@ -68,13 +68,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative mx-auto h-80 w-full max-w-sm sm:h-[28rem]">
+        <div className="relative mx-auto h-[26rem] w-full max-w-md sm:h-[34rem] md:max-w-lg">
           <Image
             src="/images/purven-hero.png"
             alt="Purven Bhavsar"
             fill
             priority
-            sizes="(max-width: 768px) 80vw, 440px"
+            sizes="(max-width: 768px) 85vw, 520px"
             className="object-contain object-bottom"
           />
         </div>

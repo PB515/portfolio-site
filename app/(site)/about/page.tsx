@@ -66,7 +66,7 @@ export default async function AboutPage() {
   return (
     <>
       {/* Intro */}
-      <section className="mx-auto grid max-w-3xl items-center gap-8 px-6 pt-20 pb-6 sm:grid-cols-[1.5fr_1fr]">
+      <section className="mx-auto grid max-w-4xl items-center gap-8 px-6 pt-20 pb-6 sm:grid-cols-[1.3fr_1fr]">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             About
@@ -76,12 +76,12 @@ export default async function AboutPage() {
             working solutions.
           </h1>
         </div>
-        <div className="relative mx-auto h-60 w-full max-w-[220px]">
+        <div className="relative mx-auto h-80 w-full max-w-[300px] sm:h-96">
           <Image
             src="/images/purven-about.png"
             alt="Purven Bhavsar"
             fill
-            sizes="(max-width: 640px) 55vw, 220px"
+            sizes="(max-width: 640px) 70vw, 300px"
             className="object-contain object-bottom"
           />
         </div>
