@@ -34,6 +34,7 @@
      AA: white on #9c5e22 ≈ 4.85:1, hover #8a521d ≈ 5.9:1. */
   --cta: #9c5e22;
   --cta-hover: #8a521d;
+  --portrait-plate: #1b231a; /* deep olive — matches Root */
   --shadow-hover: 0 8px 24px rgba(184, 115, 51, 0.25);
   --success: #7fb069;
   --warning: #d6a33e;
@@ -61,6 +62,7 @@
      lighter #b87333 which was only ~3.8:1) to #8f511f ≈ 6.2:1. */
   --cta: #a8622a;
   --cta-hover: #8f511f;
+  --portrait-plate: #ad9980; /* warm taupe — light, airy Canopy plate */
   --shadow-hover: 0 8px 24px rgba(168, 98, 42, 0.15);
   --success: #3e7c3a;
   --warning: #9a6a1a;
@@ -142,6 +144,12 @@ body {
 /* Portrait backdrops — a DISTINCT copper decoration behind each transparent
    cut-out photo (see components/Portrait.tsx). Theme-aware via --primary, no
    image assets. glow = soft halo · grid = circuit dots · rings = copper ripples. */
+/* Portrait frame plate — a dark backdrop so the copper-on-black portrait art
+   (mix-blend-screen) reads in both themes (it vanishes on plain cream). Theme-aware:
+   deep olive in Root, warm espresso in Canopy — each lets the copper glow. */
+.portrait-plate {
+  background-color: var(--portrait-plate);
+}
 .portrait-glow {
   background: radial-gradient(
     58% 52% at 50% 40%,
@@ -168,6 +176,36 @@ body {
     transparent 61.5%
   );
 }
+
+/* Syntax highlighting (rehype-highlight / highlight.js) themed with our tokens.
+   Renders server-side; the browser only gets these token colours. */
+.hljs-comment,
+.hljs-quote { color: var(--muted); font-style: italic; }
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-name,
+.hljs-tag { color: var(--primary); }
+.hljs-string,
+.hljs-attr,
+.hljs-template-tag,
+.hljs-addition,
+.hljs-regexp { color: var(--success); }
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-class .hljs-title { color: var(--accent); }
+.hljs-title,
+.hljs-section { color: var(--foreground); font-weight: 600; }
+.hljs-attribute,
+.hljs-meta,
+.hljs-symbol,
+.hljs-bullet { color: var(--warning); }
+.hljs-deletion { color: var(--error); }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }
 
 /* Theme-swapped decor (see components/Decor.tsx): Root shows copper circuit
    motifs, Canopy shows sage branch/leaf motifs. Root is the default. */

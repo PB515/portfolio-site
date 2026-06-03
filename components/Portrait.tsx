@@ -31,7 +31,7 @@ export function Portrait({
   sizes?: string;
 }) {
   return (
-    <div className="group relative isolate aspect-[4/5] w-full overflow-hidden rounded-3xl border-2 border-primary bg-surface shadow-[var(--shadow-hover)]">
+    <div className="portrait-plate group relative isolate aspect-[4/5] w-full overflow-hidden rounded-3xl border-2 border-primary shadow-[var(--shadow-hover)]">
       {/* Warm copper wash (color depth). When custom art is supplied the art is
           the pattern, so we keep just the soft glow here; otherwise the CSS variant. */}
       <div

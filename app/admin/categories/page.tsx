@@ -125,7 +125,7 @@ export default async function AdminCategoriesPage({
               {items.length === 0 ? (
                 <p className="mt-3 text-sm text-muted">None yet.</p>
               ) : (
-                <ul className="mt-3 space-y-2">
+                <ul className="mt-3 max-h-[50vh] space-y-2 overflow-y-auto pr-1">
                   {items.map((c) => (
                     <li
                       key={c.id}

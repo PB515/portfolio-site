@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/slug";
+import { MarkdownBodyField } from "@/components/MarkdownBodyField";
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -170,7 +171,7 @@ export default async function NoteEditorPage({
 
         <label className="flex flex-col gap-1 text-sm">
           <span className="text-muted">Body (Markdown) *</span>
-          <textarea name="body" defaultValue={n.body ?? ""} rows={14} required className={`${field} resize-y font-mono text-sm`} />
+          <MarkdownBodyField name="body" defaultValue={n.body ?? ""} rows={14} required />
         </label>
 
         <div className="grid gap-5 sm:grid-cols-2">

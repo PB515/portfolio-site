@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { AdminItemList, type AdminItem } from "@/components/AdminItemList";
 
-type Row = { id: string; title: string; status: string; sort_order: number };
+type Row = {
+  id: string;
+  title: string;
+  status: string;
+  is_featured: boolean | null;
+  category: { name: string; slug: string } | { name: string; slug: string }[] | null;
+};
 
 export default async function AdminProjectsPage() {
   const supabase = await createClient();
@@ -13,10 +20,29 @@ export default async function AdminProjectsPage() {
 
   const { data } = await supabase
     .from("projects")
-    .select("id,title,status,sort_order")
+    .select("id,title,status,is_featured,sort_order,category:categories(name,slug)")
     .order("sort_order")
     .order("created_at", { ascending: false });
   const rows = (data ?? []) as Row[];
+
+  const { data: catData } = await supabase
+    .from("categories")
+    .select("name,slug")
+    .eq("kind", "project")
+    .order("name");
+  const categories = (catData ?? []) as { name: string; slug: string }[];
+
+  const items: AdminItem[] = rows.map((r) => {
+    const c = Array.isArray(r.category) ? r.category[0] : r.category;
+    return {
+      id: r.id,
+      title: r.title,
+      status: r.status,
+      is_featured: !!r.is_featured,
+      categoryName: c?.name ?? null,
+      categorySlug: c?.slug ?? null,
+    };
+  });
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-14">
@@ -30,32 +56,17 @@ export default async function AdminProjectsPage() {
         </Link>
       </div>
 
-      {rows.length === 0 ? (
+      {items.length === 0 ? (
         <p className="mt-10 rounded-xl border border-dashed border-border bg-surface p-8 text-center text-sm text-muted">
           No projects yet. Create your first one.
         </p>
       ) : (
-        <ul className="mt-8 divide-y divide-border rounded-xl border border-border bg-surface">
-          {rows.map((p) => (
-            <li key={p.id}>
-              <Link
-                href={`/admin/projects/${p.id}`}
-                className="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-background/30"
-              >
-                <span className="font-medium text-foreground">{p.title}</span>
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                    p.status === "published"
-                      ? "bg-primary/15 text-primary"
-                      : "border border-border text-muted"
-                  }`}
-                >
-                  {p.status}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <AdminItemList
+          items={items}
+          categories={categories}
+          basePath="/admin/projects"
+          noun="project"
+        />
       )}
     </main>
   );

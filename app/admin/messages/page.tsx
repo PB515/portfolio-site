@@ -1,15 +1,23 @@
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { MessageList, type Lead } from "@/components/MessageList";
 
 export const metadata = { title: "Messages" };
 
-type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  message: string;
-  created_at: string;
-};
+async function deleteLead(formData: FormData) {
+  "use server";
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/admin/login");
+  const id = String(formData.get("id") ?? "");
+  if (id) {
+    await supabase.from("leads").delete().eq("id", id);
+    revalidatePath("/admin/messages");
+  }
+}
 
 export default async function AdminMessagesPage() {
   const supabase = await createClient();
@@ -35,27 +43,7 @@ export default async function AdminMessagesPage() {
           No messages yet.
         </p>
       ) : (
-        <ul className="mt-8 space-y-4">
-          {leads.map((l) => (
-            <li key={l.id} className="rounded-xl border border-border bg-surface p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-medium text-foreground">{l.name}</span>
-                <span className="text-xs text-muted">
-                  {new Date(l.created_at).toLocaleString()}
-                </span>
-              </div>
-              <a
-                href={`mailto:${l.email}`}
-                className="text-sm text-primary hover:text-primary-hover"
-              >
-                {l.email}
-              </a>
-              <p className="mt-3 whitespace-pre-wrap text-sm text-foreground">
-                {l.message}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <MessageList leads={leads} deleteAction={deleteLead} />
       )}
     </main>
   );
