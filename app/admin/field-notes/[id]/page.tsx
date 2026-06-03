@@ -40,6 +40,7 @@ async function saveNote(formData: FormData) {
     body,
     category_id: String(formData.get("category_id") ?? "") || null,
     status,
+    is_featured: formData.get("is_featured") === "on",
     updated_at: new Date().toISOString(),
   };
 
@@ -57,6 +58,19 @@ async function saveNote(formData: FormData) {
   }
 
   if (status === "published") payload.published_at = new Date().toISOString();
+
+  // Hard cap: at most 5 featured notes.
+  if (payload.is_featured === true) {
+    let countQ = supabase
+      .from("field_notes")
+      .select("id", { count: "exact", head: true })
+      .eq("is_featured", true);
+    if (!isNew) countQ = countQ.neq("id", id);
+    const { count } = await countQ;
+    if ((count ?? 0) >= 5) {
+      return back(id, "You can feature at most 5 notes — unfeature one first.");
+    }
+  }
 
   let err;
   if (isNew) {
@@ -108,6 +122,7 @@ export default async function NoteEditorPage({
   type Note = {
     id: string; title: string; slug: string; excerpt: string | null; body: string;
     category_id: string | null; cover_path: string | null; status: string;
+    is_featured: boolean | null;
   };
   let n: Partial<Note> = { status: "draft" };
   if (!isNew) {
@@ -176,6 +191,16 @@ export default async function NoteEditorPage({
             </select>
           </label>
         </div>
+
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="is_featured"
+            defaultChecked={!!n.is_featured}
+            className="h-4 w-4 accent-[var(--primary)]"
+          />
+          <span className="text-muted">Feature this note</span>
+        </label>
 
         <label className="flex flex-col gap-1 text-sm">
           <span className="text-muted">Cover image (optional)</span>
