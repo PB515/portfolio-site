@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { PerspectiveToggle } from "@/components/PerspectiveToggle";
 
 // Admin is private: never indexed. Auth gating is in proxy.ts (redirect logged-out);
 // each page also re-checks getUser() (defense in depth).
@@ -55,6 +56,7 @@ export default async function AdminLayout({
               ))}
             </nav>
             <div className="flex items-center gap-3 text-sm">
+              <PerspectiveToggle />
               <span className="hidden text-muted sm:inline">{user.email}</span>
               <Link
                 href="/"
