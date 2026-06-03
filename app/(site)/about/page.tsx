@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { createPublicClient, publicAsset } from "@/lib/supabase/public";
+
+export const revalidate = 60;
 
 export const metadata = {
   title: "About",
@@ -50,7 +53,15 @@ function Section({
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const supabase = createPublicClient();
+  const { data: resume } = await supabase
+    .from("resume")
+    .select("file_path")
+    .eq("is_current", true)
+    .maybeSingle();
+  const resumeUrl = publicAsset("resume", resume?.file_path ?? null);
+
   return (
     <>
       {/* Intro */}
@@ -187,17 +198,30 @@ export default function AboutPage() {
       <section className="mx-auto max-w-3xl px-6 py-12">
         <div className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-lg font-medium tracking-tight">Want the résumé?</p>
+            <p className="text-lg font-medium tracking-tight">Résumé</p>
             <p className="mt-1 text-sm text-muted">
-              A downloadable résumé is coming soon — reach out and I&apos;ll share it.
+              {resumeUrl
+                ? "Download my résumé, or reach out to connect."
+                : "A downloadable résumé is coming soon — reach out and I'll share it."}
             </p>
           </div>
-          <Link
-            href="/contact"
-            className="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
-          >
-            Get in touch
-          </Link>
+          {resumeUrl ? (
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+            >
+              Download résumé
+            </a>
+          ) : (
+            <Link
+              href="/contact"
+              className="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+            >
+              Get in touch
+            </Link>
+          )}
         </div>
       </section>
     </>

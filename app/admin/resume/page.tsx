@@ -40,6 +40,7 @@ async function uploadResume(formData: FormData) {
   if (insErr) return back(insErr.message);
 
   revalidatePath("/admin/resume");
+  revalidatePath("/about");
   redirect("/admin/resume");
 }
 

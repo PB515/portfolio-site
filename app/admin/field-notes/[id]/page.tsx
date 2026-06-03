@@ -67,6 +67,8 @@ async function saveNote(formData: FormData) {
   if (err) return back(id, err.message);
 
   revalidatePath("/admin/field-notes");
+  revalidatePath("/field-notes");
+  revalidatePath(`/field-notes/${slug}`);
   redirect("/admin/field-notes");
 }
 
@@ -77,6 +79,7 @@ async function deleteNote(formData: FormData) {
   if (id && id !== "new") {
     await supabase.from("field_notes").delete().eq("id", id);
     revalidatePath("/admin/field-notes");
+    revalidatePath("/field-notes");
   }
   redirect("/admin/field-notes");
 }

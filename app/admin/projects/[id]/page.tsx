@@ -70,6 +70,8 @@ async function saveProject(formData: FormData) {
   if (err) return back(id, err.message);
 
   revalidatePath("/admin/projects");
+  revalidatePath("/portfolio");
+  revalidatePath(`/portfolio/${slug}`);
   redirect("/admin/projects");
 }
 
@@ -84,6 +86,7 @@ async function deleteProject(formData: FormData) {
   if (id && id !== "new") {
     await supabase.from("projects").delete().eq("id", id);
     revalidatePath("/admin/projects");
+    revalidatePath("/portfolio");
   }
   redirect("/admin/projects");
 }
