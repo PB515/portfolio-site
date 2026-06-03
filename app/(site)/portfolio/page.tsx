@@ -7,21 +7,45 @@ export const metadata = {
     "Projects, experiments, and learning by Purven Bhavsar — AI automation, SEO, and web.",
 };
 
-export const revalidate = 60; // ISR — rebuilds at most once a minute; admin publish revalidates instantly
-
 type Project = {
   title: string;
   slug: string;
   summary: string;
   cover_path: string | null;
 };
+type Cat = { id: string; name: string; slug: string };
 
-export default async function PortfolioPage() {
+const chip = (active: boolean) =>
+  `rounded-full border px-4 py-1.5 text-sm transition-colors ${
+    active
+      ? "border-primary bg-primary text-on-primary"
+      : "border-border text-muted hover:border-border-hover hover:text-foreground"
+  }`;
+
+export default async function PortfolioPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category } = await searchParams;
   const supabase = createPublicClient();
-  const { data } = await supabase
+
+  const { data: catData } = await supabase
+    .from("categories")
+    .select("id,name,slug")
+    .eq("kind", "project")
+    .order("name");
+  const categories = (catData ?? []) as Cat[];
+  const selected = category
+    ? (categories.find((c) => c.slug === category) ?? null)
+    : null;
+
+  let q = supabase
     .from("projects")
     .select("title,slug,summary,cover_path")
-    .eq("status", "published")
+    .eq("status", "published");
+  if (selected) q = q.eq("category_id", selected.id);
+  const { data } = await q
     .order("sort_order")
     .order("published_at", { ascending: false });
   const projects = (data ?? []) as Project[];
@@ -39,33 +63,60 @@ export default async function PortfolioPage() {
         practical, working solutions.
       </p>
 
-      {projects.length === 0 ? (
-        <div className="mt-12 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
-          <p className="text-lg font-medium text-foreground">
-            Projects are being added soon.
-          </p>
-          <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-            In the meantime, you can see my code on GitHub or reach out.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <a
-              href="https://github.com/PB515"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-hover"
-            >
-              View GitHub
-            </a>
+      {/* Category filter */}
+      {categories.length > 0 && (
+        <div className="mt-8 flex flex-wrap gap-2">
+          <Link href="/portfolio" className={chip(!selected)}>
+            All
+          </Link>
+          {categories.map((c) => (
             <Link
-              href="/contact"
-              className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+              key={c.slug}
+              href={`/portfolio?category=${c.slug}`}
+              className={chip(selected?.slug === c.slug)}
             >
-              Get in touch
+              {c.name}
             </Link>
-          </div>
+          ))}
         </div>
+      )}
+
+      {projects.length === 0 ? (
+        selected ? (
+          <p className="mt-12 rounded-2xl border border-dashed border-border bg-surface p-10 text-center text-sm text-muted">
+            No projects in <span className="text-foreground">{selected.name}</span> yet.{" "}
+            <Link href="/portfolio" className="text-primary hover:text-primary-hover">
+              View all
+            </Link>
+          </p>
+        ) : (
+          <div className="mt-12 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+            <p className="text-lg font-medium text-foreground">
+              Projects are being added soon.
+            </p>
+            <p className="mx-auto mt-2 max-w-md text-sm text-muted">
+              In the meantime, you can see my code on GitHub or reach out.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href="https://github.com/PB515"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-hover"
+              >
+                View GitHub
+              </a>
+              <Link
+                href="/contact"
+                className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover"
+              >
+                Get in touch
+              </Link>
+            </div>
+          </div>
+        )
       ) : (
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2">
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2">
           {projects.map((p) => {
             const cover = publicAsset("covers", p.cover_path);
             return (
@@ -82,9 +133,7 @@ export default async function PortfolioPage() {
                     <h2 className="font-medium text-foreground group-hover:text-primary">
                       {p.title}
                     </h2>
-                    {p.summary && (
-                      <p className="mt-1.5 text-sm text-muted">{p.summary}</p>
-                    )}
+                    {p.summary && <p className="mt-1.5 text-sm text-muted">{p.summary}</p>}
                   </div>
                 </Link>
               </li>
