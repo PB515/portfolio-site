@@ -175,12 +175,20 @@ export default async function NoteEditorPage({
         </div>
 
         <label className="flex flex-col gap-1 text-sm">
-          <span className="text-muted">Cover image (optional, &lt; 5 MB)</span>
+          <span className="text-muted">Cover image (optional)</span>
+          <span className="text-xs text-muted">
+            Landscape works best — about <strong className="font-medium text-foreground">1200×630px</strong> (≈1.9:1) · JPG / PNG / WebP · under 5 MB
+          </span>
           {coverUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={coverUrl} alt="" className="mb-2 h-28 w-auto rounded-md border border-border object-cover" />
+            <img src={coverUrl} alt="" className="mt-1 mb-2 h-28 w-auto rounded-md border border-border object-cover" />
           )}
-          <input type="file" name="cover" accept="image/*" className="text-sm text-muted" />
+          <input
+            type="file"
+            name="cover"
+            accept="image/*"
+            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-primary-hover"
+          />
         </label>
 
         <div className="mt-2 flex items-center gap-3">

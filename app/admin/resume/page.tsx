@@ -94,8 +94,14 @@ export default async function AdminResumePage({
 
       <form action={uploadResume} className="mt-6 flex flex-col gap-4 rounded-xl border border-border bg-surface p-5">
         <label className="flex flex-col gap-1 text-sm">
-          <span className="text-muted">Upload new résumé (PDF, &lt; 10 MB)</span>
-          <input type="file" name="file" accept="application/pdf" required className="text-sm text-muted" />
+          <span className="text-muted">Upload new résumé — PDF, under 10 MB</span>
+          <input
+            type="file"
+            name="file"
+            accept="application/pdf"
+            required
+            className="mt-1 text-sm text-muted file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-medium file:text-on-primary hover:file:bg-primary-hover"
+          />
         </label>
         <button type="submit" className="self-start rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-on-primary transition-colors hover:bg-primary-hover">
           Upload &amp; set as current
