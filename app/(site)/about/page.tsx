@@ -200,31 +200,69 @@ export default async function AboutPage() {
 
       {/* Education (real, from the brief) */}
       <Section eyebrow="Education" title="Where I studied">
-        <ul className="space-y-4 text-base">
+        <ul className="space-y-5 text-base">
           <li>
-            <p className="font-medium text-foreground">
-              MBA, Infrastructure Development
-            </p>
-            <p className="text-muted">Adani University · beginning 2026</p>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <p className="font-medium text-foreground">
+                MBA, Infrastructure Development
+              </p>
+              <p className="text-sm text-muted">beginning 2026</p>
+            </div>
+            <p className="text-muted">Adani University</p>
           </li>
           <li>
-            <p className="font-medium text-foreground">
-              B.E., Computer Engineering
-            </p>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <p className="font-medium text-foreground">
+                B.E., Computer Engineering
+              </p>
+              <p className="text-sm text-muted">2021 – 2025</p>
+            </div>
             <p className="text-muted">
               Gandhinagar Institute of Technology · Gujarat Technological
               University
             </p>
+            <p className="mt-0.5 text-sm text-muted">6.93 CGPA</p>
           </li>
         </ul>
       </Section>
 
-      {/* Experience — included now, content TBD (decision B2) */}
+      {/* Experience (real) */}
       <Section eyebrow="Experience" title="What I've been building">
-        <p className="text-base">
-          Over a year of hands-on work building AI automation, SEO, and web
-          projects. A detailed experience timeline is on the way — in the
-          meantime, the{" "}
+        <ul className="space-y-6 text-base">
+          <li>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <p className="font-medium text-foreground">Junior Developer</p>
+              <p className="text-sm text-muted">Jun 2025 – Jun 2026</p>
+            </div>
+            <p className="text-muted">
+              <a
+                href="https://rapidsolutions.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-hover"
+              >
+                Rapid Solutions
+              </a>{" "}
+              · Web Development, AI Automation &amp; Digital Marketing
+            </p>
+            <p className="mt-2 text-base">
+              Built and shipped client websites, set up AI/automation workflows, and
+              handled SEO — turning practical requirements into working solutions.
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {["Web Development", "AI Automation", "SEO"].map((s) => (
+                <li
+                  key={s}
+                  className="cursor-default rounded-full border border-border px-3 py-1 text-sm text-foreground transition-colors hover:border-border-hover hover:text-primary"
+                >
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </li>
+        </ul>
+        <p className="mt-6 text-sm text-muted">
+          The{" "}
           <Link href="/portfolio" className="text-primary hover:text-primary-hover">
             portfolio
           </Link>{" "}
