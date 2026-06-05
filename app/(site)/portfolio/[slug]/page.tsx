@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 import { Markdown } from "@/components/Markdown";
 import { FeaturedStrip, type StripItem } from "@/components/FeaturedStrip";
+import { Motif } from "@/components/Motif";
 
 export const revalidate = 60;
 
@@ -58,7 +59,15 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const p = await getProject(slug);
-  return p ? { title: p.title, description: p.summary } : { title: "Project" };
+  if (!p) return { title: "Project" };
+  const cover = publicAsset("covers", p.cover_path);
+  const images = [cover ?? "/og/og-default.png"];
+  return {
+    title: p.title,
+    description: p.summary,
+    openGraph: { title: p.title, description: p.summary, type: "article", images },
+    twitter: { card: "summary_large_image", title: p.title, description: p.summary, images },
+  };
 }
 
 export default async function ProjectDetailPage({
@@ -129,7 +138,8 @@ export default async function ProjectDetailPage({
 
       <FeaturedStrip heading="More work" items={more} basePath="/portfolio" />
 
-      <div className="mt-14 border-t border-border pt-10">
+      <div className="relative isolate mt-14 overflow-hidden rounded-2xl border border-border bg-surface p-7">
+        <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.06]" />
         <p className="text-xl font-medium tracking-tight text-foreground">
           Want to talk about work like this?
         </p>

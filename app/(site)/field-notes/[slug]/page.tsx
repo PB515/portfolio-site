@@ -4,6 +4,7 @@ import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 import { Markdown } from "@/components/Markdown";
 import { JsonLd } from "@/components/JsonLd";
 import { FeaturedStrip, type StripItem } from "@/components/FeaturedStrip";
+import { Motif } from "@/components/Motif";
 
 export const revalidate = 60;
 
@@ -56,7 +57,15 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const n = await getNote(slug);
-  return n ? { title: n.title, description: n.excerpt ?? undefined } : { title: "Field Note" };
+  if (!n) return { title: "Field Note" };
+  const cover = publicAsset("covers", n.cover_path);
+  const images = [cover ?? "/og/og-default.png"];
+  return {
+    title: n.title,
+    description: n.excerpt ?? undefined,
+    openGraph: { title: n.title, description: n.excerpt ?? undefined, type: "article", images },
+    twitter: { card: "summary_large_image", title: n.title, description: n.excerpt ?? undefined, images },
+  };
 }
 
 export default async function FieldNotePage({
@@ -109,7 +118,8 @@ export default async function FieldNotePage({
 
       <FeaturedStrip heading="More field notes" items={more} basePath="/field-notes" />
 
-      <div className="mt-14 border-t border-border pt-10">
+      <div className="relative isolate mt-14 overflow-hidden rounded-2xl border border-border bg-surface p-7">
+        <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.06]" />
         <p className="text-xl font-medium tracking-tight text-foreground">
           Enjoyed this? Let&apos;s talk.
         </p>

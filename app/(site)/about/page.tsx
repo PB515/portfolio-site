@@ -4,6 +4,7 @@ import { Icon } from "@/components/Icon";
 import { Reveal } from "@/components/Reveal";
 import { Portrait } from "@/components/Portrait";
 import { AboutDecor } from "@/components/AboutDecor";
+import { Motif } from "@/components/Motif";
 
 export const revalidate = 60;
 
@@ -272,7 +273,8 @@ export default async function AboutPage() {
 
       {/* Resume + connect */}
       <section className="mx-auto max-w-3xl px-6 py-12">
-        <Reveal className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal className="relative isolate flex flex-col items-start gap-4 overflow-hidden rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
+          <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.06]" />
           <div>
             <p className="text-lg font-medium tracking-tight">Resume</p>
             <p className="mt-1 text-sm text-muted">
