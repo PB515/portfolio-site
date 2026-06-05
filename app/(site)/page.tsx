@@ -160,7 +160,7 @@ export default async function HomePage() {
             href="/about"
             className="group lift relative isolate block overflow-hidden rounded-xl border border-border bg-surface p-7 shadow-[var(--shadow-sm)] hover:border-border-hover"
           >
-            <Motif className="-bottom-8 -right-8 -z-10 h-40 w-auto opacity-[0.06]" />
+            <Motif className="-bottom-8 -right-8 -z-10 h-40 w-auto opacity-[0.15]" />
             <p className="text-lg leading-relaxed text-foreground">
               It started with opening up old CPUs and electronics as a kid, became
               a first webpage in a school lab, and grew into AI automation and the
@@ -187,7 +187,7 @@ export default async function HomePage() {
           </Reveal>
         ) : (
           <Reveal delay={120} className="relative isolate flex aspect-[3/2] w-full items-center justify-center overflow-hidden rounded-2xl border border-border bg-surface">
-            <Motif className="left-1/2 top-1/2 h-28 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.12]" />
+            <Motif className="left-1/2 top-1/2 h-28 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.16]" />
           </Reveal>
         )}
       </section>

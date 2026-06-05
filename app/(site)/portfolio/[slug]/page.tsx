@@ -139,7 +139,7 @@ export default async function ProjectDetailPage({
       <FeaturedStrip heading="More work" items={more} basePath="/portfolio" />
 
       <div className="relative isolate mt-14 overflow-hidden rounded-2xl border border-border bg-surface p-7">
-        <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.06]" />
+        <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.15]" />
         <p className="text-xl font-medium tracking-tight text-foreground">
           Want to talk about work like this?
         </p>

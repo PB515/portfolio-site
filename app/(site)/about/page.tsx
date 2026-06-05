@@ -165,7 +165,7 @@ export default async function AboutPage() {
         </p>
         <div className="grid gap-6 pt-2 sm:grid-cols-2">
           <div className="relative isolate overflow-hidden rounded-xl border border-border bg-surface p-5">
-            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.06]" />
+            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="ai-automation" className="h-5 w-5 text-primary" />
               Today — building
@@ -182,7 +182,7 @@ export default async function AboutPage() {
             </ul>
           </div>
           <div className="relative isolate overflow-hidden rounded-xl border border-border bg-surface p-5">
-            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.06]" />
+            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="growth-seo" className="h-5 w-5 text-primary" />
               Heading toward — at scale
@@ -276,7 +276,7 @@ export default async function AboutPage() {
       {/* Resume + connect */}
       <section className="mx-auto max-w-3xl px-6 py-12">
         <Reveal className="relative isolate flex flex-col items-start gap-4 overflow-hidden rounded-2xl border border-border bg-surface p-7 sm:flex-row sm:items-center sm:justify-between">
-          <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.06]" />
+          <Motif className="-bottom-8 -right-8 -z-10 h-36 w-auto opacity-[0.15]" />
           <div>
             <p className="text-lg font-medium tracking-tight">Resume</p>
             <p className="mt-1 text-sm text-muted">
