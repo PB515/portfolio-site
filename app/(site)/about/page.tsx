@@ -164,7 +164,8 @@ export default async function AboutPage() {
           AI/automation now, systems and infrastructure at scale next.
         </p>
         <div className="grid gap-6 pt-2 sm:grid-cols-2">
-          <div className="rounded-xl border border-border bg-surface p-5">
+          <div className="relative isolate overflow-hidden rounded-xl border border-border bg-surface p-5">
+            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.06]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="ai-automation" className="h-5 w-5 text-primary" />
               Today — building
@@ -180,7 +181,8 @@ export default async function AboutPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-xl border border-border bg-surface p-5">
+          <div className="relative isolate overflow-hidden rounded-xl border border-border bg-surface p-5">
+            <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.06]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="growth-seo" className="h-5 w-5 text-primary" />
               Heading toward — at scale
