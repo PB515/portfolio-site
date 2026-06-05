@@ -18,6 +18,7 @@ const NAV = [
   { href: "/admin/field-notes", label: "Field Notes" },
   { href: "/admin/categories", label: "Categories" },
   { href: "/admin/resume", label: "Resume" },
+  { href: "/admin/home", label: "Home Image" },
   { href: "/admin/messages", label: "Messages" },
 ];
 

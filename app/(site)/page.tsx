@@ -73,6 +73,16 @@ export default async function HomePage() {
     cover_path: string | null;
   }[];
 
+  // Home "story" photo — admin-uploaded (DB-backed); null until uploaded.
+  const { data: storyImg } = await supabase
+    .from("site_images")
+    .select("file_path,alt")
+    .eq("key", "home_story")
+    .maybeSingle();
+  const storyData = storyImg as { file_path: string; alt: string | null } | null;
+  const storyUrl = publicAsset("covers", storyData?.file_path ?? null);
+  const storyAlt = storyData?.alt ?? "Purven Bhavsar";
+
   return (
     <>
       <JsonLd data={PERSON} />
@@ -165,14 +175,21 @@ export default async function HomePage() {
           </Link>
         </Reveal>
 
-        {/* PLACEHOLDER — replace with public/images/purven-story.jpg (~1200×800) */}
-        <Reveal delay={120} className="flex aspect-[3/2] w-full items-center justify-center rounded-2xl border-2 border-dashed border-primary/50 bg-surface text-center">
-          <div className="px-4 text-sm text-muted">
-            <p className="font-medium text-foreground">Image</p>
-            <p className="mt-1">~1200×800 (3:2 landscape)</p>
-            <p className="mt-1 text-xs">save as /images/purven-story.jpg</p>
-          </div>
-        </Reveal>
+        {/* Story photo — admin-uploaded via /admin/home. Clean branded panel until set. */}
+        {storyUrl ? (
+          <Reveal delay={120} className="group relative overflow-hidden rounded-2xl border-2 border-primary bg-surface shadow-[var(--shadow-sm)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={storyUrl}
+              alt={storyAlt}
+              className="aspect-[3/2] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+          </Reveal>
+        ) : (
+          <Reveal delay={120} className="relative isolate flex aspect-[3/2] w-full items-center justify-center overflow-hidden rounded-2xl border border-border bg-surface">
+            <Motif className="left-1/2 top-1/2 h-28 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.12]" />
+          </Reveal>
+        )}
       </section>
 
       {/* Featured work — projects flagged is_featured in admin (above Connect). */}
