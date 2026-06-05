@@ -121,7 +121,7 @@ export default async function FieldNotesPage({
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
                     )}
-                    <div className="p-4">
+                    <div className="card-motif p-4">
                       <h3 className="font-medium text-foreground group-hover:text-primary">
                         {n.title}
                       </h3>

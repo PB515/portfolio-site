@@ -38,7 +38,7 @@ export function FeaturedStrip({
                   className="aspect-[16/9] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               )}
-              <div className="p-3">
+              <div className="card-motif p-3">
                 <h3 className="line-clamp-1 text-sm font-medium text-foreground group-hover:text-primary">
                   {it.title}
                 </h3>

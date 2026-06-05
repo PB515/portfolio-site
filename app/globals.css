@@ -207,6 +207,26 @@ body {
 .hljs-emphasis { font-style: italic; }
 .hljs-strong { font-weight: 700; }
 
+/* Faint copper tree tucked into the bottom-right of a card's text panel.
+   `isolation: isolate` + z-index:-1 keeps it behind the title/summary; the card's
+   overflow-hidden clips it to a corner accent. */
+.card-motif {
+  position: relative;
+  isolation: isolate;
+}
+.card-motif::after {
+  content: "";
+  position: absolute;
+  right: -0.85rem;
+  bottom: -0.85rem;
+  width: 5rem;
+  height: 5rem;
+  background: url("/brand/logo-mark.png") right bottom / contain no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* Theme-swapped decor (see components/Decor.tsx): Root shows copper circuit
    motifs, Canopy shows sage branch/leaf motifs. Root is the default. */
 .decor-root { display: block; }
