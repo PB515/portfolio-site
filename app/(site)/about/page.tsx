@@ -206,7 +206,7 @@ export default async function AboutPage() {
               <p className="font-medium text-foreground">
                 MBA, Infrastructure Development
               </p>
-              <p className="text-sm text-muted">beginning 2026</p>
+              <p className="text-sm text-muted">2026 – Present</p>
             </div>
             <p className="text-muted">Adani University</p>
           </li>
