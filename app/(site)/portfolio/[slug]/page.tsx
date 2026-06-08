@@ -109,7 +109,7 @@ export default async function ProjectDetailPage({
       {p.stack && p.stack.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-2">
           {p.stack.map((s) => (
-            <li key={s} className="rounded-full border border-border px-3 py-1 text-xs text-muted">
+            <li key={s} className="cursor-default rounded-full border border-border px-3 py-1 text-xs text-muted transition-colors hover:border-border-hover hover:text-primary">
               {s}
             </li>
           ))}
