@@ -79,8 +79,8 @@ export default async function AdminDashboardPage() {
       <div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-surface px-5 py-4">
         <p className="text-sm text-muted">
           Featured —{" "}
-          <span className="font-medium text-foreground">{n(featProj)}/5</span> projects ·{" "}
-          <span className="font-medium text-foreground">{n(featNote)}/5</span> notes
+          <span className="font-medium text-foreground">{n(featProj)}/6</span> projects ·{" "}
+          <span className="font-medium text-foreground">{n(featNote)}/6</span> notes
         </p>
         <div className="flex flex-wrap gap-2">
           <Link

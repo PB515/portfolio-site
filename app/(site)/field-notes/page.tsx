@@ -76,7 +76,7 @@ export default async function FieldNotesPage({
       .eq("status", "published")
       .eq("is_featured", true)
       .order("published_at", { ascending: false })
-      .limit(5);
+      .limit(6);
     featured = (f ?? []) as Note[];
   }
 

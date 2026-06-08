@@ -51,7 +51,7 @@ export default async function HomePage() {
     .eq("status", "published")
     .eq("is_featured", true)
     .order("sort_order")
-    .limit(5);
+    .limit(6);
   const featured = (featuredData ?? []) as {
     title: string;
     slug: string;
@@ -65,7 +65,7 @@ export default async function HomePage() {
     .eq("status", "published")
     .eq("is_featured", true)
     .order("published_at", { ascending: false })
-    .limit(3);
+    .limit(6);
   const featuredNotes = (featuredNotesData ?? []) as {
     title: string;
     slug: string;

@@ -51,7 +51,7 @@ export default async function PortfolioPage({
       .eq("status", "published")
       .eq("is_featured", true)
       .order("sort_order")
-      .limit(5);
+      .limit(6);
     featured = (f ?? []) as Project[];
   }
 

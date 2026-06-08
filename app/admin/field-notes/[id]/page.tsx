@@ -60,7 +60,7 @@ async function saveNote(formData: FormData) {
 
   if (status === "published") payload.published_at = new Date().toISOString();
 
-  // Hard cap: at most 5 featured notes.
+  // Hard cap: at most 6 featured notes.
   if (payload.is_featured === true) {
     let countQ = supabase
       .from("field_notes")
@@ -68,8 +68,8 @@ async function saveNote(formData: FormData) {
       .eq("is_featured", true);
     if (!isNew) countQ = countQ.neq("id", id);
     const { count } = await countQ;
-    if ((count ?? 0) >= 5) {
-      return back(id, "You can feature at most 5 notes — unfeature one first.");
+    if ((count ?? 0) >= 6) {
+      return back(id, "You can feature at most 6 notes — unfeature one first.");
     }
   }
 

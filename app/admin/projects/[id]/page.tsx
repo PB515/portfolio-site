@@ -63,7 +63,7 @@ async function saveProject(formData: FormData) {
 
   if (status === "published") payload.published_at = new Date().toISOString();
 
-  // Hard cap: at most 5 featured projects.
+  // Hard cap: at most 6 featured projects.
   if (payload.is_featured === true) {
     let countQ = supabase
       .from("projects")
@@ -71,8 +71,8 @@ async function saveProject(formData: FormData) {
       .eq("is_featured", true);
     if (!isNew) countQ = countQ.neq("id", id);
     const { count } = await countQ;
-    if ((count ?? 0) >= 5) {
-      return back(id, "You can feature at most 5 projects — unfeature one first.");
+    if ((count ?? 0) >= 6) {
+      return back(id, "You can feature at most 6 projects — unfeature one first.");
     }
   }
 
