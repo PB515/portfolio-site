@@ -30,16 +30,16 @@ const PERSON = {
   ],
 };
 
-// Each tile links to the Portfolio filtered by this category (slug must match a
-// category created in admin, kind=project).
-const CATEGORIES: { icon: IconName; label: string; slug: string }[] = [
-  { icon: "ai-automation", label: "AI Automation", slug: "ai-automation" },
-  { icon: "case-studies", label: "Case Studies", slug: "case-studies" },
-  { icon: "web-frontend", label: "Web & Frontend", slug: "web-frontend" },
-  { icon: "growth-seo", label: "Growth & SEO", slug: "growth-seo" },
-  { icon: "learning-research", label: "Learning & Research", slug: "learning-research" },
-  { icon: "writing-explaining", label: "Writing & Explaining", slug: "writing-explaining" },
-];
+// The "Browse by area" tiles are built from the real admin categories (kind=project),
+// so they always match what's in the CMS. Pick a brand icon by keyword in the slug.
+function iconForCategory(slug: string): IconName {
+  if (/(automation|system|^ai|-ai)/.test(slug)) return "ai-automation";
+  if (/(seo|growth|market)/.test(slug)) return "growth-seo";
+  if (/(web|front|infra)/.test(slug)) return "web-frontend";
+  if (/(research|data|learn)/.test(slug)) return "learning-research";
+  if (/(writ|explain|note|blog)/.test(slug)) return "writing-explaining";
+  return "case-studies";
+}
 
 export const revalidate = 60;
 
@@ -82,6 +82,14 @@ export default async function HomePage() {
   const storyData = storyImg as { file_path: string; alt: string | null } | null;
   const storyUrl = publicAsset("covers", storyData?.file_path ?? null);
   const storyAlt = storyData?.alt ?? "Purven Bhavsar";
+
+  // Project categories for the "Browse by area" tiles (match the admin CMS).
+  const { data: catData } = await supabase
+    .from("categories")
+    .select("name,slug")
+    .eq("kind", "project")
+    .order("name");
+  const categories = (catData ?? []) as { name: string; slug: string }[];
 
   return (
     <>
@@ -130,28 +138,30 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      {/* Browse by area — clickable category tiles → Portfolio filtered. */}
-      <section className="relative isolate mx-auto max-w-5xl overflow-hidden px-6 py-12">
-        <Decor className="-right-20 top-1/2 -z-10 h-56 w-56 -translate-y-1/2 rotate-90 opacity-[0.07]" />
-        <Reveal as="h2" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-          Browse my work by area
-        </Reveal>
-        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {CATEGORIES.map((c, i) => (
-            <Reveal as="li" key={c.slug} delay={i * 60}>
-              <Link
-                href={`/portfolio?category=${c.slug}`}
-                className="group lift flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 hover:border-border-hover"
-              >
-                <Icon name={c.icon} className="h-6 w-6 shrink-0 text-primary" />
-                <span className="text-sm text-foreground group-hover:text-primary">
-                  {c.label}
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
+      {/* Browse by area — tiles built from the real admin categories. */}
+      {categories.length > 0 && (
+        <section className="relative isolate mx-auto max-w-5xl overflow-hidden px-6 py-12">
+          <Decor className="-right-20 top-1/2 -z-10 h-56 w-56 -translate-y-1/2 rotate-90 opacity-[0.07]" />
+          <Reveal as="h2" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Browse my work by area
+          </Reveal>
+          <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {categories.map((c, i) => (
+              <Reveal as="li" key={c.slug} delay={i * 60}>
+                <Link
+                  href={`/portfolio?category=${c.slug}`}
+                  className="group lift flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 hover:border-border-hover"
+                >
+                  <Icon name={iconForCategory(c.slug)} className="h-6 w-6 shrink-0 text-primary" />
+                  <span className="text-sm text-foreground group-hover:text-primary">
+                    {c.name}
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Story teaser → About (+ image slot) */}
       <section className="mx-auto grid max-w-5xl items-center gap-8 px-6 py-12 md:grid-cols-[1.2fr_1fr]">
