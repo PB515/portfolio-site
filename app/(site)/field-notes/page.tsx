@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { FieldNotesDecor } from "@/components/FieldNotesDecor";
+import { EditorialList, type EditorialItem } from "@/components/EditorialList";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 
 export const metadata = {
@@ -15,6 +16,7 @@ type Note = {
   excerpt: string | null;
   cover_path: string | null;
   published_at: string | null;
+  category: { name: string } | { name: string }[] | null;
 };
 type Cat = { id: string; name: string; slug: string };
 
@@ -25,29 +27,8 @@ const chip = (active: boolean) =>
       : "border-border text-muted hover:border-border-hover hover:text-foreground"
   }`;
 
-function NoteCard({ n }: { n: Note }) {
-  const cover = publicAsset("covers", n.cover_path);
-  return (
-    <Link
-      href={`/field-notes/${n.slug}`}
-      className="group flex items-center gap-5 py-6 transition-colors"
-    >
-      {cover && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={cover} alt="" className="hidden h-20 w-32 shrink-0 rounded-lg border border-border object-cover sm:block" />
-      )}
-      <div>
-        <h2 className="font-medium text-foreground group-hover:text-primary">{n.title}</h2>
-        {n.excerpt && <p className="mt-1 text-sm text-muted">{n.excerpt}</p>}
-        {n.published_at && (
-          <p className="mt-1 text-xs text-muted">
-            {new Date(n.published_at).toLocaleDateString()}
-          </p>
-        )}
-      </div>
-    </Link>
-  );
-}
+const fmtDate = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : null;
 
 export default async function FieldNotesPage({
   searchParams,
@@ -67,26 +48,25 @@ export default async function FieldNotesPage({
     ? (categories.find((c) => c.slug === category) ?? null)
     : null;
 
-  // Featured (only shown on the unfiltered view)
-  let featured: Note[] = [];
-  if (!selected) {
-    const { data: f } = await supabase
-      .from("field_notes")
-      .select("title,slug,excerpt,cover_path,published_at")
-      .eq("status", "published")
-      .eq("is_featured", true)
-      .order("published_at", { ascending: false })
-      .limit(6);
-    featured = (f ?? []) as Note[];
-  }
-
   let q = supabase
     .from("field_notes")
-    .select("title,slug,excerpt,cover_path,published_at")
+    .select("title,slug,excerpt,cover_path,published_at,category:categories(name)")
     .eq("status", "published");
   if (selected) q = q.eq("category_id", selected.id);
   const { data } = await q.order("published_at", { ascending: false });
   const notes = (data ?? []) as Note[];
+
+  const items: EditorialItem[] = notes.map((n) => {
+    const c = Array.isArray(n.category) ? n.category[0] : n.category;
+    const meta = [fmtDate(n.published_at), c?.name ?? null].filter(Boolean).join(" · ") || null;
+    return {
+      title: n.title,
+      href: `/field-notes/${n.slug}`,
+      meta,
+      excerpt: n.excerpt,
+      cover: publicAsset("covers", n.cover_path),
+    };
+  });
 
   return (
     <main className="relative isolate mx-auto max-w-5xl overflow-hidden px-6 pt-20 pb-16">
@@ -102,44 +82,8 @@ export default async function FieldNotesPage({
         infrastructure and growth.
       </Reveal>
 
-      {/* Featured row (unfiltered view only) */}
-      {featured.length > 0 && (
-        <section className="mt-10">
-          <Reveal as="h2" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            Featured
-          </Reveal>
-          <ul className="mt-4 grid gap-6 sm:grid-cols-3">
-            {featured.map((n, i) => {
-              const cover = publicAsset("covers", n.cover_path);
-              return (
-                <Reveal as="li" key={n.slug} delay={i * 80}>
-                  <Link
-                    href={`/field-notes/${n.slug}`}
-                    className="group lift block overflow-hidden rounded-2xl border border-border bg-surface hover:border-border-hover"
-                  >
-                    {cover && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
-                    )}
-                    <div className="card-motif p-4">
-                      <h3 className="font-medium text-foreground group-hover:text-primary">
-                        {n.title}
-                      </h3>
-                      {n.excerpt && (
-                        <p className="mt-1 line-clamp-2 text-sm text-muted">{n.excerpt}</p>
-                      )}
-                    </div>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </ul>
-        </section>
-      )}
-
-      {/* Category filter */}
       {categories.length > 0 && (
-        <Reveal className="mt-10 flex flex-wrap gap-2">
+        <Reveal className="mt-8 flex flex-wrap gap-2">
           <Link href="/field-notes" className={chip(!selected)}>
             All
           </Link>
@@ -181,13 +125,7 @@ export default async function FieldNotesPage({
           </Reveal>
         )
       ) : (
-        <ul className="mt-8 divide-y divide-border border-y border-border">
-          {notes.map((n, i) => (
-            <Reveal as="li" key={n.slug} delay={i * 60}>
-              <NoteCard n={n} />
-            </Reveal>
-          ))}
-        </ul>
+        <EditorialList items={items} />
       )}
     </main>
   );

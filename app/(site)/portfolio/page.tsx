@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { PortfolioDecor } from "@/components/PortfolioDecor";
+import { EditorialList, type EditorialItem } from "@/components/EditorialList";
 import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 
 export const metadata = {
@@ -14,6 +15,9 @@ type Project = {
   slug: string;
   summary: string;
   cover_path: string | null;
+  role: string | null;
+  stack: string[] | null;
+  published_at: string | null;
 };
 type Cat = { id: string; name: string; slug: string };
 
@@ -42,28 +46,28 @@ export default async function PortfolioPage({
     ? (categories.find((c) => c.slug === category) ?? null)
     : null;
 
-  // Featured row (unfiltered view only)
-  let featured: Project[] = [];
-  if (!selected) {
-    const { data: f } = await supabase
-      .from("projects")
-      .select("title,slug,summary,cover_path")
-      .eq("status", "published")
-      .eq("is_featured", true)
-      .order("sort_order")
-      .limit(6);
-    featured = (f ?? []) as Project[];
-  }
-
   let q = supabase
     .from("projects")
-    .select("title,slug,summary,cover_path")
+    .select("title,slug,summary,cover_path,role,stack,published_at")
     .eq("status", "published");
   if (selected) q = q.eq("category_id", selected.id);
   const { data } = await q
     .order("sort_order")
     .order("published_at", { ascending: false });
   const projects = (data ?? []) as Project[];
+
+  const items: EditorialItem[] = projects.map((p) => {
+    const year = p.published_at ? new Date(p.published_at).getFullYear() : null;
+    const stackStr = (p.stack ?? []).slice(0, 3).join(", ");
+    const meta =
+      [p.role, stackStr || null, year].filter(Boolean).join(" · ") || p.summary || null;
+    return {
+      title: p.title,
+      href: `/portfolio/${p.slug}`,
+      meta,
+      cover: publicAsset("covers", p.cover_path),
+    };
+  });
 
   return (
     <main className="relative isolate mx-auto max-w-5xl overflow-hidden px-6 pt-20 pb-16">
@@ -79,42 +83,6 @@ export default async function PortfolioPage({
         practical, working solutions.
       </Reveal>
 
-      {/* Featured row (unfiltered view only) */}
-      {featured.length > 0 && (
-        <section className="mt-10">
-          <Reveal as="h2" className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            Featured
-          </Reveal>
-          <ul className="mt-4 grid gap-6 sm:grid-cols-3">
-            {featured.map((p, i) => {
-              const cover = publicAsset("covers", p.cover_path);
-              return (
-                <Reveal as="li" key={p.slug} delay={i * 80}>
-                  <Link
-                    href={`/portfolio/${p.slug}`}
-                    className="group lift block overflow-hidden rounded-2xl border border-border bg-surface hover:border-border-hover"
-                  >
-                    {cover && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
-                    )}
-                    <div className="card-motif p-4">
-                      <h3 className="font-medium text-foreground group-hover:text-primary">
-                        {p.title}
-                      </h3>
-                      {p.summary && (
-                        <p className="mt-1 line-clamp-2 text-sm text-muted">{p.summary}</p>
-                      )}
-                    </div>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </ul>
-        </section>
-      )}
-
-      {/* Category filter */}
       {categories.length > 0 && (
         <Reveal className="mt-8 flex flex-wrap gap-2">
           <Link href="/portfolio" className={chip(!selected)}>
@@ -167,30 +135,7 @@ export default async function PortfolioPage({
           </Reveal>
         )
       ) : (
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2">
-          {projects.map((p, i) => {
-            const cover = publicAsset("covers", p.cover_path);
-            return (
-              <Reveal as="li" key={p.slug} delay={i * 70}>
-                <Link
-                  href={`/portfolio/${p.slug}`}
-                  className="group lift block overflow-hidden rounded-2xl border border-border bg-surface hover:border-border-hover"
-                >
-                  {cover && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={cover} alt="" className="aspect-[1200/630] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
-                  )}
-                  <div className="card-motif p-5">
-                    <h2 className="font-medium text-foreground group-hover:text-primary">
-                      {p.title}
-                    </h2>
-                    {p.summary && <p className="mt-1.5 text-sm text-muted">{p.summary}</p>}
-                  </div>
-                </Link>
-              </Reveal>
-            );
-          })}
-        </ul>
+        <EditorialList items={items} />
       )}
     </main>
   );
