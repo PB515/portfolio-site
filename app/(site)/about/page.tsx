@@ -34,24 +34,24 @@ const VALUES = ["Learning", "Curiosity", "Innovation", "Growth", "Economic Devel
 
 const JOURNEY: { when: string; text: string }[] = [
   {
-    when: "As a kid",
-    text: "Fascinated by how computers, TVs, and electronics worked — I opened up old CPUs and devices just to see inside.",
+    when: "The Spark",
+    text: "Fascinated by how things worked, I spent my early years taking apart old CPUs and writing my first lines of HTML.",
   },
   {
-    when: "School labs",
-    text: "That curiosity grew in the school computer labs, where I spent as much time as I could.",
+    when: "The Architecture",
+    text: "Earned my degree in Computer Engineering, building a strong foundation in logical problem-solving and system architecture.",
   },
   {
-    when: "The HTML moment",
-    text: "A teacher introduced HTML and website creation. Building my first webpage made me decide to become a Computer Engineer.",
+    when: "The Growth Engine",
+    text: "Realized building isn't enough without visibility. Shifted into digital marketing to master SEO, client accounts, and growth strategies.",
   },
   {
-    when: "Today",
-    text: "I build practical AI automation, web technologies, and digital systems.",
+    when: "The Synthesis",
+    text: "Today, I bridge tech and business — building Python data-scraping pipelines, practical AI automations, and web infrastructure.",
   },
   {
-    when: "Next",
-    text: "An MBA in Infrastructure Development (2026) — heading toward large-scale systems, infrastructure, and economic growth.",
+    when: "The Macro Leap",
+    text: "Starting my MBA in Infrastructure Management at Adani University in August 2026 — scaling my focus from digital ecosystems to physical infrastructure and economic growth.",
   },
 ];
 

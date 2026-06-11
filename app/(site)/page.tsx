@@ -172,9 +172,8 @@ export default async function HomePage() {
           >
             <Motif className="-bottom-8 -right-8 -z-10 h-40 w-auto opacity-[0.15]" />
             <p className="text-lg leading-relaxed text-foreground">
-              It started with opening up old CPUs and electronics as a kid, became
-              a first webpage in a school lab, and grew into AI automation and the
-              systems behind it.
+              From computer engineering to digital growth. I build automated web
+              systems today, preparing to scale physical infrastructure tomorrow.
             </p>
             <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:text-primary-hover">
               Read the full story
