@@ -22,7 +22,7 @@ const PERSON = {
     "SEO",
     "Web Development",
     "Systems Thinking",
-    "Infrastructure Development",
+    "Infrastructure Management",
   ],
   sameAs: [
     "https://github.com/PB515",
@@ -108,7 +108,7 @@ export default async function HomePage() {
           <Reveal as="p" delay={180} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             Today I build practical AI automation, SEO, and web systems. I&apos;m
             heading toward systems, infrastructure, and economic growth — an MBA
-            in Infrastructure Development begins in 2026.
+            in Infrastructure Management begins in 2026.
           </Reveal>
           <Reveal delay={270} className="mt-9 flex flex-wrap gap-3">
             <Link

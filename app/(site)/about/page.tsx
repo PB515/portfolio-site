@@ -24,7 +24,7 @@ const SKILLS_TODAY = [
 
 const SKILLS_FUTURE = [
   "Systems Thinking",
-  "Infrastructure Development",
+  "Infrastructure Management",
   "Large-Scale Systems",
   "Economic Growth",
   "Technology & Society",
@@ -207,7 +207,7 @@ export default async function AboutPage() {
           <li>
             <div className="flex flex-wrap items-baseline justify-between gap-x-3">
               <p className="font-medium text-foreground">
-                MBA, Infrastructure Development
+                MBA, Infrastructure Management
               </p>
               <p className="text-sm text-muted">2026 – Present</p>
             </div>
