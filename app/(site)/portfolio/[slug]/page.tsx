@@ -16,6 +16,7 @@ type Project = {
   stack: string[] | null;
   outcome: string | null;
   external_url: string | null;
+  report_path: string | null;
 };
 
 function decodeSlug(slug: string) {
@@ -30,7 +31,7 @@ async function getProject(slug: string) {
   const supabase = createPublicClient();
   const { data } = await supabase
     .from("projects")
-    .select("title,summary,body,cover_path,role,stack,outcome,external_url")
+    .select("title,summary,body,cover_path,role,stack,outcome,external_url,report_path")
     .eq("slug", decodeSlug(slug))
     .eq("status", "published")
     .maybeSingle();
@@ -81,6 +82,7 @@ export default async function ProjectDetailPage({
 
   const more = await getMoreProjects(decodeSlug(slug));
   const cover = publicAsset("covers", p.cover_path);
+  const reportUrl = publicAsset("covers", p.report_path);
 
   return (
     <main className="mx-auto max-w-3xl px-6 pt-16 pb-16">
@@ -124,6 +126,20 @@ export default async function ProjectDetailPage({
       {p.body && (
         <div className="mt-10">
           <Markdown>{p.body}</Markdown>
+        </div>
+      )}
+
+      {reportUrl && (
+        <div className="mt-10">
+          <a
+            href={reportUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-cta px-6 py-3 text-sm font-medium text-on-primary transition-colors hover:bg-cta-hover"
+          >
+            Read the detailed report
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
       )}
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/slug";
 import { MarkdownBodyField } from "@/components/MarkdownBodyField";
+import { ProjectReportUploader } from "@/components/ProjectReportUploader";
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -106,6 +107,33 @@ async function deleteProject(formData: FormData) {
   redirect("/admin/projects");
 }
 
+// Per-project report: file uploads browser→Storage directly; these only save the path.
+async function setProjectReport(id: string, path: string) {
+  "use server";
+  const supabase = await requireAdmin();
+  const { data } = await supabase
+    .from("projects")
+    .update({ report_path: path })
+    .eq("id", id)
+    .select("slug")
+    .single();
+  revalidatePath(`/admin/projects/${id}`);
+  if (data?.slug) revalidatePath(`/portfolio/${data.slug}`);
+}
+
+async function removeProjectReport(id: string) {
+  "use server";
+  const supabase = await requireAdmin();
+  const { data } = await supabase
+    .from("projects")
+    .update({ report_path: null })
+    .eq("id", id)
+    .select("slug")
+    .single();
+  revalidatePath(`/admin/projects/${id}`);
+  if (data?.slug) revalidatePath(`/portfolio/${data.slug}`);
+}
+
 const field =
   "rounded-md border border-border bg-background/30 px-3 py-2 text-foreground outline-none focus:border-primary";
 
@@ -131,7 +159,7 @@ export default async function ProjectEditorPage({
     id: string; title: string; slug: string; summary: string; body: string | null;
     category_id: string | null; cover_path: string | null; role: string | null;
     stack: string[] | null; outcome: string | null; external_url: string | null; status: string;
-    is_featured: boolean | null;
+    is_featured: boolean | null; report_path: string | null;
   };
   let p: Partial<Project> = { status: "draft", stack: [] };
   if (!isNew) {
@@ -142,6 +170,9 @@ export default async function ProjectEditorPage({
 
   const coverUrl = p.cover_path
     ? supabase.storage.from("covers").getPublicUrl(p.cover_path).data.publicUrl
+    : null;
+  const reportUrl = p.report_path
+    ? supabase.storage.from("covers").getPublicUrl(p.report_path).data.publicUrl
     : null;
 
   return (
@@ -253,6 +284,19 @@ export default async function ProjectEditorPage({
           </Link>
         </div>
       </form>
+
+      {isNew ? (
+        <p className="mt-8 rounded-xl border border-dashed border-border bg-surface p-5 text-sm text-muted">
+          Save the project first — then you can upload a detailed report (PDF) here.
+        </p>
+      ) : (
+        <ProjectReportUploader
+          projectId={id}
+          currentUrl={reportUrl}
+          onSave={setProjectReport.bind(null, id)}
+          onRemove={removeProjectReport.bind(null, id)}
+        />
+      )}
 
       {!isNew && (
         <form action={deleteProject} className="mt-10 border-t border-border pt-6">
