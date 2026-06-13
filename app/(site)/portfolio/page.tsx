@@ -7,7 +7,7 @@ import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 export const metadata = {
   title: "Portfolio",
   description:
-    "Projects, experiments, and learning by Purven Bhavsar — AI automation, SEO, and web.",
+    "Projects, experiments, and learning by Purven Bhavsar across AI automation, SEO, and web.",
 };
 
 type Project = {
@@ -79,8 +79,8 @@ export default async function PortfolioPage({
         Projects, experiments &amp; learning
       </Reveal>
       <Reveal as="p" delay={160} className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
-        AI automation, SEO, and web — the work that turns complex systems into
-        practical, working solutions.
+        AI automation, SEO, and web. The projects where I take something
+        complicated and make it actually work.
       </Reveal>
 
       {categories.length > 0 && (

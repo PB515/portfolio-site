@@ -7,7 +7,7 @@ import { createPublicClient, publicAsset } from "@/lib/supabase/public";
 export const metadata = {
   title: "Field Notes",
   description:
-    "Notes on what Purven Bhavsar is learning and thinking about — AI, automation, systems, and growth.",
+    "Notes on what Purven Bhavsar is learning and thinking about: AI, automation, systems, and growth.",
 };
 
 type Note = {
@@ -111,7 +111,7 @@ export default async function FieldNotesPage({
           <Reveal className="mt-10 rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
             <p className="text-lg font-medium text-foreground">Writing soon.</p>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-              I&apos;m putting together my first field notes. Check back shortly — or
+              I&apos;m putting together my first field notes. Check back soon, or
               connect and I&apos;ll let you know when they&apos;re up.
             </p>
             <div className="mt-6 flex justify-center">

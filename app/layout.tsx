@@ -19,16 +19,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   // Template keeps "Purven Bhavsar" appearing once per page (doc 11 launch gate).
   title: {
-    default: "Purven Bhavsar — Engineer, Automate, Grow",
+    default: "Purven Bhavsar · Engineer, Automate, Grow",
     template: "%s · Purven Bhavsar",
   },
   description:
-    "Purven Bhavsar — I learn complex systems quickly and turn them into practical, working solutions. AI automation, web, and systems thinking.",
+    "I learn complex systems quickly and turn them into practical, working solutions. AI automation, web, and systems thinking.",
   openGraph: {
     type: "website",
     siteName: "Purven Bhavsar",
     url: SITE_URL,
-    title: "Purven Bhavsar — Engineer, Automate, Grow",
+    title: "Purven Bhavsar · Engineer, Automate, Grow",
     description:
       "I learn complex systems quickly and turn them into practical, working solutions.",
     images: ["/og/og-default.png"], // add public/og/og-default.png (1200×630)

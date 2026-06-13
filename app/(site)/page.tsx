@@ -102,13 +102,13 @@ export default async function HomePage() {
             AI Automation · Systems Thinking
           </Reveal>
           <Reveal as="h1" delay={90} className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-            I learn complex systems quickly — and turn them into{" "}
+            I learn complex systems quickly, then turn them into{" "}
             <span className="text-primary">practical, working solutions.</span>
           </Reveal>
           <Reveal as="p" delay={180} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            Today I build practical AI automation, SEO, and web systems. I&apos;m
-            heading toward systems, infrastructure, and economic growth — an MBA
-            in Infrastructure Management begins in 2026.
+            Right now I build AI automation, SEO, and web systems. Next I&apos;m
+            moving toward infrastructure and economic growth at scale. My MBA in
+            Infrastructure Management starts in 2026.
           </Reveal>
           <Reveal delay={270} className="mt-9 flex flex-wrap gap-3">
             <Link

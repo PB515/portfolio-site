@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <p className="mt-2">
             If you use the contact form, I collect the <strong className="text-foreground">name,
             email, and message</strong> you submit. I also store a one-way hashed
-            version of your IP address purely to limit spam — it can&apos;t be
+            version of your IP address purely to limit spam. It can&apos;t be
             reversed to identify you.
           </p>
         </section>
@@ -45,16 +45,16 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-semibold text-foreground">Analytics &amp; cookies</h2>
           <p className="mt-2">
             This site uses privacy-friendly, <strong className="text-foreground">cookieless</strong>{" "}
-            analytics — aggregate page counts only, no tracking cookies and no
-            cross-site profiling. The only thing stored in your browser is your
-            chosen theme (Root/Canopy) preference.
+            analytics. That means aggregate page counts only, no tracking cookies
+            and no cross-site profiling. The only thing stored in your browser is
+            your chosen theme (Root/Canopy) preference.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-foreground">Your choices</h2>
           <p className="mt-2">
-            You can ask me to see or delete the message data you sent — just email{" "}
+            You can ask me to see or delete the message data you sent. Just email{" "}
             <a href="mailto:bhavsarpurven515@gmail.com" className="text-primary hover:text-primary-hover">
               bhavsarpurven515@gmail.com
             </a>{" "}

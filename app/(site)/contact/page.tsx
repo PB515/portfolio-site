@@ -5,7 +5,7 @@ import { ContactDecor } from "@/components/ContactDecor";
 
 export const metadata = {
   title: "Contact",
-  description: "Get in touch with Purven Bhavsar — email, LinkedIn, or GitHub.",
+  description: "Get in touch with Purven Bhavsar by email, LinkedIn, or GitHub.",
 };
 
 const CONNECT = [
@@ -24,8 +24,8 @@ export default function ContactPage() {
         Let&apos;s connect
       </Reveal>
       <Reveal as="p" delay={160} className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
-        Whether you want to talk systems, AI automation, or just say hello —
-        I&apos;d like to hear from you.
+        Want to talk systems or AI automation, or just to say hello? I&apos;d
+        like to hear from you.
       </Reveal>
 
       {/* Grid areas: mobile stacks photo → form → links; desktop keeps photo + links

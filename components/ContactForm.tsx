@@ -35,7 +35,7 @@ export function ContactForm() {
       }
       setStatus("success");
     } catch {
-      setError("Network error — please email me directly.");
+      setError("Network error. Please email me directly.");
       setStatus("error");
     }
   }
@@ -43,7 +43,7 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div role="status" className="rounded-xl border border-border bg-surface p-6 text-sm">
-        <p className="font-medium text-foreground">Thanks — your message is on its way.</p>
+        <p className="font-medium text-foreground">Thanks, your message is on its way.</p>
         <p className="mt-2 text-muted">
           I&apos;ll get back to you soon. You can also reach me at{" "}
           <a href={`mailto:${EMAIL}`} className="text-primary hover:text-primary-hover">

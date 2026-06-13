@@ -9,7 +9,7 @@ export function Logo() {
     <Link
       href="/"
       className="inline-flex items-center gap-2.5"
-      aria-label="Purven Bhavsar — home"
+      aria-label="Purven Bhavsar, home"
     >
       <Image
         src="/brand/logo-mark.png"

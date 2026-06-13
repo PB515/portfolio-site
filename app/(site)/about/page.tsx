@@ -11,7 +11,7 @@ export const revalidate = 60;
 export const metadata = {
   title: "About",
   description:
-    "Purven Bhavsar — from opening up old CPUs as a kid to building AI automation and studying infrastructure. Learning complex systems and making them practical.",
+    "From taking apart old CPUs as a kid to building AI automation and studying infrastructure. Purven Bhavsar learns complex systems and makes them practical.",
 };
 
 const SKILLS_TODAY = [
@@ -47,11 +47,11 @@ const JOURNEY: { when: string; text: string }[] = [
   },
   {
     when: "The Synthesis",
-    text: "Today, I bridge tech and business — building Python data-scraping pipelines, practical AI automations, and web infrastructure.",
+    text: "Today, I work across tech and business. I build Python data-scraping pipelines, practical AI automations, and web infrastructure.",
   },
   {
     when: "The Macro Leap",
-    text: "Starting my MBA in Infrastructure Management at Adani University in August 2026 — scaling my focus from digital ecosystems to physical infrastructure and economic growth.",
+    text: "In August 2026 I start my MBA in Infrastructure Management at Adani University, taking my focus from digital systems to physical infrastructure and economic growth.",
   },
 ];
 
@@ -102,7 +102,7 @@ export default async function AboutPage() {
             About
           </p>
           <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-            I learn complex systems quickly — and turn them into practical,
+            I learn complex systems quickly, then turn them into practical,
             working solutions.
           </h1>
         </Reveal>
@@ -135,14 +135,13 @@ export default async function AboutPage() {
       {/* Philosophy */}
       <Section eyebrow="Philosophy" title="How I think about systems">
         <p>
-          I enjoy understanding how systems work — whether it&apos;s a computer, an
+          I like figuring out how systems work, whether it&apos;s a computer, an
           AI workflow, a business process, or large-scale infrastructure. I&apos;m
-          naturally drawn toward understanding complexity and making it
-          practical.
+          drawn to complexity, and to making it practical.
         </p>
         <p>
-          My goal isn&apos;t only to learn technology, but to understand how systems
-          create opportunities, solve problems, and contribute to long-term
+          I don&apos;t just want to learn technology. I want to understand how
+          systems create opportunities, solve problems, and support long-term
           growth.
         </p>
         <ul className="flex flex-wrap gap-2 pt-2">
@@ -168,7 +167,7 @@ export default async function AboutPage() {
             <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="ai-automation" className="h-5 w-5 text-primary" />
-              Today — building
+              Building today
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {SKILLS_TODAY.map((s) => (
@@ -185,7 +184,7 @@ export default async function AboutPage() {
             <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="growth-seo" className="h-5 w-5 text-primary" />
-              Heading toward — at scale
+              Heading to scale
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {SKILLS_FUTURE.map((s) => (
@@ -249,8 +248,9 @@ export default async function AboutPage() {
               · Web Development, AI Automation &amp; Digital Marketing
             </p>
             <p className="mt-2 text-base">
-              Built and shipped client websites, set up AI/automation workflows, and
-              handled SEO — turning practical requirements into working solutions.
+              Built and shipped client websites, set up AI and automation
+              workflows, and ran SEO. Mostly it meant turning real client
+              requirements into things that actually worked.
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {["Web Development", "AI Automation", "SEO"].map((s) => (
@@ -282,7 +282,7 @@ export default async function AboutPage() {
             <p className="mt-1 text-sm text-muted">
               {resumeUrl
                 ? "Download my resume, or reach out to connect."
-                : "A downloadable resume is coming soon — reach out and I'll share it."}
+                : "A downloadable resume is coming soon. Reach out and I'll share it."}
             </p>
           </div>
           {resumeUrl ? (
