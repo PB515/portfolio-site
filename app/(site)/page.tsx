@@ -173,8 +173,7 @@ export default async function HomePage() {
           >
             <Motif className="-bottom-8 -right-8 -z-10 h-40 w-auto opacity-[0.15]" />
             <p className="text-lg leading-relaxed text-foreground">
-              From computer engineering to an MBA in infrastructure. A year of
-              building software for real businesses, and now a focus on energy.
+              Why I&apos;m moving from writing code to understanding the grid.
             </p>
             <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:text-primary-hover">
               Read the full story
