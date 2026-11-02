@@ -25,6 +25,7 @@ const SKILLS_TODAY = [
 const SKILLS_FUTURE = [
   "Systems Thinking",
   "Infrastructure Management",
+  "Energy Sector",
   "Large-Scale Systems",
   "Economic Growth",
   "Technology & Society",
@@ -51,7 +52,7 @@ const JOURNEY: { when: string; text: string }[] = [
   },
   {
     when: "The Macro Leap",
-    text: "In August 2026 I start my MBA in Infrastructure Management at Adani University, taking my focus from digital systems to physical infrastructure and economic growth.",
+    text: "In August 2026 I started my MBA in Infrastructure Management at Adani University, taking my focus from digital systems to physical infrastructure and the energy sector.",
   },
 ];
 

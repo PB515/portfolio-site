@@ -3,10 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 /**
  * Health check + free-tier keep-alive.
  *
- * Returns 200 when the DB answers. A daily external cron
- * (.github/workflows/keepalive.yml) hits this so the real DB query resets
- * Supabase's 7-day inactivity timer — the free project pauses after 7 days
- * idle, which would take the site's DB calls down until a manual restore.
+ * Returns 200 when the DB answers. A daily Vercel Cron (vercel.json) hits
+ * this so the real DB query resets Supabase's 7-day inactivity timer — the
+ * free project pauses after 7 days idle, which would take the site's DB calls
+ * down until a manual restore. Vercel Cron replaced a GitHub Actions job that
+ * GitHub disables after 60 days without commits.
  * The keepalive() function ships in db/migrations/0007_keepalive.sql.
  */
 export const dynamic = "force-dynamic"; // never cache — a cached 200 wouldn't touch the DB

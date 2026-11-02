@@ -3,7 +3,10 @@ import { createPublicClient } from "@/lib/supabase/public";
 
 const SITE = "https://portfolio-site-psi-ruddy.vercel.app";
 
-export const revalidate = 300;
+// Build per request. With `revalidate` the sitemap stayed frozen at its build
+// snapshot, so projects/notes published from the admin never appeared until a
+// redeploy. One small DB query per crawl is cheap.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createPublicClient();
@@ -19,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/field-notes",
     "/contact",
     "/privacy",
-  ].map((p) => ({ url: `${SITE}${p}`, lastModified: new Date() }));
+  ].map((p) => ({ url: `${SITE}${p}` })); // no lastModified: "now" on every request would be misleading
 
   const dt = (a?: string | null, b?: string | null) =>
     new Date(a ?? b ?? new Date().toISOString());

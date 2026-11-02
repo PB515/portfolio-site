@@ -23,6 +23,7 @@ const PERSON = {
     "Web Development",
     "Systems Thinking",
     "Infrastructure Management",
+    "Energy Sector",
   ],
   sameAs: [
     "https://github.com/PB515",
@@ -99,16 +100,17 @@ export default async function HomePage() {
         <HeroDecor className="inset-0 -z-10 opacity-[0.14]" />
         <div>
           <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            AI Automation · Systems Thinking
+            MBA, Infrastructure Management · Energy
           </Reveal>
           <Reveal as="h1" delay={90} className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
             I learn complex systems quickly, then turn them into{" "}
             <span className="text-primary">practical, working solutions.</span>
           </Reveal>
           <Reveal as="p" delay={180} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            Right now I build AI automation, SEO, and web systems. Next I&apos;m
-            moving toward infrastructure and economic growth at scale. My MBA in
-            Infrastructure Management starts in 2026.
+            I&apos;m doing my MBA in Infrastructure Management at Adani
+            University, focused on the energy sector. Before that I studied
+            computer engineering and built practical tools for real
+            organisations.
           </Reveal>
           <Reveal delay={270} className="mt-9 flex flex-wrap gap-3">
             <Link

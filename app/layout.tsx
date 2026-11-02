@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · Purven Bhavsar",
   },
   description:
-    "I learn complex systems quickly and turn them into practical, working solutions. AI automation, web, and systems thinking.",
+    "I learn complex systems quickly and turn them into practical, working solutions. MBA in Infrastructure Management, focused on energy.",
   openGraph: {
     type: "website",
     siteName: "Purven Bhavsar",
