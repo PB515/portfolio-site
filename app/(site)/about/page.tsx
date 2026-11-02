@@ -11,48 +11,46 @@ export const revalidate = 60;
 export const metadata = {
   title: "About",
   description:
-    "From taking apart old CPUs as a kid to building AI automation and studying infrastructure. Purven Bhavsar learns complex systems and makes them practical.",
+    "Engineer and MBA student at Adani University, learning how India makes, moves and predicts its power.",
 };
 
-const SKILLS_TODAY = [
-  "AI Automation",
-  "n8n Workflows",
-  "SEO & YouTube SEO",
-  "Web Development",
-  "WordPress",
+const SKILLS_BRING = [
+  "Python",
+  "Next.js & TypeScript",
+  "SQL & Supabase",
+  "AI Automation (n8n)",
+  "Data Analysis",
+  "Building tools real people use",
 ];
 
-const SKILLS_FUTURE = [
-  "Systems Thinking",
-  "Infrastructure Management",
-  "Energy Sector",
-  "Large-Scale Systems",
-  "Economic Growth",
-  "Technology & Society",
+const SKILLS_EXPLORING = [
+  "Nuclear Power",
+  "Energy Storage & Gravity Batteries",
+  "Electricity Demand Forecasting",
+  "Power Transmission",
+  "Energy Markets & Policy",
 ];
-
-const VALUES = ["Learning", "Curiosity", "Innovation", "Growth", "Economic Development"];
 
 const JOURNEY: { when: string; text: string }[] = [
   {
-    when: "The Spark",
+    when: "Early years",
     text: "Fascinated by how things worked, I spent my early years taking apart old CPUs and writing my first lines of HTML.",
   },
   {
-    when: "The Architecture",
-    text: "Earned my degree in Computer Engineering, building a strong foundation in logical problem-solving and system architecture.",
+    when: "2021 – 2025",
+    text: "Earned my B.E. in Computer Engineering, which taught me to break big problems into systems.",
   },
   {
-    when: "The Growth Engine",
-    text: "Realized building isn't enough without visibility. Shifted into digital marketing to master SEO, client accounts, and growth strategies.",
+    when: "2025 – 2026",
+    text: "Worked as a Junior Developer at Rapid Solutions, building client websites, setting up AI automation and running SEO. It taught me to turn real client needs into things that work.",
   },
   {
-    when: "The Synthesis",
-    text: "Today, I work across tech and business. I build Python data-scraping pipelines, practical AI automations, and web infrastructure.",
+    when: "August 2026",
+    text: "Started my MBA in Infrastructure Management at Adani University. In my first semester I built Solar Sahay, a rooftop solar calculator, as part of a Design Thinking group project.",
   },
   {
-    when: "The Macro Leap",
-    text: "In August 2026 I started my MBA in Infrastructure Management at Adani University, taking my focus from digital systems to physical infrastructure and the energy sector.",
+    when: "Next",
+    text: "Learning how India makes, moves and predicts its power, starting with an electricity demand forecasting project.",
   },
 ];
 
@@ -103,8 +101,7 @@ export default async function AboutPage() {
             About
           </p>
           <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-            I learn complex systems quickly, then turn them into practical,
-            working solutions.
+            Engineer by training, heading into energy.
           </h1>
         </Reveal>
         <Reveal delay={120} className="mx-auto w-full max-w-[360px]">
@@ -133,45 +130,37 @@ export default async function AboutPage() {
         </ol>
       </Section>
 
-      {/* Philosophy */}
-      <Section eyebrow="Philosophy" title="How I think about systems">
+      {/* Why energy */}
+      <Section title="Why energy">
         <p>
-          I like figuring out how systems work, whether it&apos;s a computer, an
-          AI workflow, a business process, or large-scale infrastructure. I&apos;m
-          drawn to complexity, and to making it practical.
+          Electricity is so ordinary that most of us never think about it. I
+          do. I&apos;m amazed by how it&apos;s made, how it travels from a power
+          plant to a home, and how the grid keeps supply and demand in balance
+          all the time. That&apos;s the field I want to build a career in.
         </p>
         <p>
-          I don&apos;t just want to learn technology. I want to understand how
-          systems create opportunities, solve problems, and support long-term
-          growth.
+          The parts that pull me in most are nuclear power, energy storage such
+          as gravity batteries, and how a country predicts how much electricity
+          it will need. Forecasting is where my engineering and data skills fit
+          best.
         </p>
-        <ul className="flex flex-wrap gap-2 pt-2">
-          {VALUES.map((v) => (
-            <li
-              key={v}
-              className="cursor-default rounded-full border border-border px-3 py-1 text-sm text-foreground transition-colors hover:border-border-hover hover:text-primary"
-            >
-              {v}
-            </li>
-          ))}
-        </ul>
       </Section>
 
-      {/* Skills arc */}
-      <Section eyebrow="Skills" title="An arc, not a list">
+      {/* Skills */}
+      <Section eyebrow="Skills" title="What I bring, and what I'm exploring">
         <p className="text-base">
-          What I build today points toward where I&apos;m going: practical
-          AI/automation now, systems and infrastructure at scale next.
+          My engineering and data skills are what I bring to energy. The energy
+          side I&apos;m learning now, ahead of my energy electives in semester 3.
         </p>
         <div className="grid gap-6 pt-2 sm:grid-cols-2">
           <div className="relative isolate overflow-hidden rounded-xl border border-border bg-surface p-5">
             <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="ai-automation" className="h-5 w-5 text-primary" />
-              Building today
+              What I bring
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {SKILLS_TODAY.map((s) => (
+              {SKILLS_BRING.map((s) => (
                 <li
                   key={s}
                   className="cursor-default rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border transition-colors hover:text-primary hover:ring-border-hover"
@@ -185,10 +174,10 @@ export default async function AboutPage() {
             <Motif className="-bottom-6 -right-6 -z-10 h-28 w-auto opacity-[0.15]" />
             <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
               <Icon name="growth-seo" className="h-5 w-5 text-primary" />
-              Heading to scale
+              What I&apos;m exploring
             </p>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {SKILLS_FUTURE.map((s) => (
+              {SKILLS_EXPLORING.map((s) => (
                 <li
                   key={s}
                   className="cursor-default rounded-full bg-background/40 px-3 py-1 text-sm text-muted ring-1 ring-border transition-colors hover:text-primary hover:ring-border-hover"

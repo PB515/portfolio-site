@@ -19,25 +19,25 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   // Template keeps "Purven Bhavsar" appearing once per page (doc 11 launch gate).
   title: {
-    default: "Purven Bhavsar · Engineer, Automate, Grow",
+    default: "Purven Bhavsar · Power, Systems, Data",
     template: "%s · Purven Bhavsar",
   },
   description:
-    "I learn complex systems quickly and turn them into practical, working solutions. MBA in Infrastructure Management, focused on energy.",
+    "Engineer and MBA student, learning how India makes, moves and predicts its power.",
   openGraph: {
     type: "website",
     siteName: "Purven Bhavsar",
     url: SITE_URL,
-    title: "Purven Bhavsar · Engineer, Automate, Grow",
+    title: "Purven Bhavsar · Power, Systems, Data",
     description:
-      "I learn complex systems quickly and turn them into practical, working solutions.",
+      "Engineer and MBA student, learning how India makes, moves and predicts its power.",
     images: ["/og/og-default.png"], // add public/og/og-default.png (1200×630)
   },
   twitter: {
     card: "summary_large_image",
     title: "Purven Bhavsar",
     description:
-      "I learn complex systems quickly and turn them into practical, working solutions.",
+      "Engineer and MBA student, learning how India makes, moves and predicts its power.",
     images: ["/og/og-default.png"],
   },
 };

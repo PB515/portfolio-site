@@ -15,7 +15,7 @@ const PERSON = {
   name: "Purven Bhavsar",
   url: "https://portfolio-site-psi-ruddy.vercel.app",
   description:
-    "Learns complex systems quickly and turns them into practical, working solutions.",
+    "Engineer and MBA student, learning how India makes, moves and predicts its power.",
   knowsAbout: [
     "AI Automation",
     "Workflow Automation",
@@ -100,17 +100,16 @@ export default async function HomePage() {
         <HeroDecor className="inset-0 -z-10 opacity-[0.14]" />
         <div>
           <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            MBA, Infrastructure Management · Energy
+            Adani University · Infrastructure Management
           </Reveal>
           <Reveal as="h1" delay={90} className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-            I learn complex systems quickly, then turn them into{" "}
-            <span className="text-primary">practical, working solutions.</span>
+            Engineer and MBA student, learning how India{" "}
+            <span className="text-primary">makes, moves and predicts its power.</span>
           </Reveal>
           <Reveal as="p" delay={180} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            I&apos;m doing my MBA in Infrastructure Management at Adani
-            University, focused on the energy sector. Before that I studied
-            computer engineering and built practical tools for real
-            organisations.
+            Before my MBA I spent a year as a developer, building software for
+            real businesses. Now I&apos;m most curious about nuclear power,
+            energy storage, and how electricity demand is forecast.
           </Reveal>
           <Reveal delay={270} className="mt-9 flex flex-wrap gap-3">
             <Link
@@ -174,8 +173,8 @@ export default async function HomePage() {
           >
             <Motif className="-bottom-8 -right-8 -z-10 h-40 w-auto opacity-[0.15]" />
             <p className="text-lg leading-relaxed text-foreground">
-              From computer engineering to digital growth. I build automated web
-              systems today, preparing to scale physical infrastructure tomorrow.
+              From computer engineering to an MBA in infrastructure. A year of
+              building software for real businesses, and now a focus on energy.
             </p>
             <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:text-primary-hover">
               Read the full story

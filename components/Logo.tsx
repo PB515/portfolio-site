@@ -24,7 +24,7 @@ export function Logo() {
           Purven Bhavsar<span className="text-primary">.</span>
         </span>
         <span className="mt-1.5 whitespace-nowrap text-[0.6rem] uppercase tracking-[0.28em] text-muted">
-          Engineer · Automate · Grow
+          Power · Systems · Data
         </span>
       </span>
     </Link>
