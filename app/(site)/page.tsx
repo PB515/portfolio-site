@@ -52,6 +52,9 @@ export default async function HomePage() {
     .eq("status", "published")
     .eq("is_featured", true)
     .order("sort_order")
+    // Tie-break like /portfolio: the admin has no order field, so sort_order is
+    // usually equal and the DB would otherwise return featured work in any order.
+    .order("published_at", { ascending: false })
     .limit(6);
   const featured = (featuredData ?? []) as {
     title: string;

@@ -47,6 +47,7 @@ async function getMoreProjects(excludeSlug: string): Promise<StripItem[]> {
     .eq("is_featured", true)
     .neq("slug", excludeSlug)
     .order("sort_order")
+    .order("published_at", { ascending: false })
     .limit(3);
   return ((data ?? []) as { title: string; slug: string; summary: string; cover_path: string | null }[]).map(
     (p) => ({ title: p.title, slug: p.slug, blurb: p.summary, cover: publicAsset("covers", p.cover_path) }),
